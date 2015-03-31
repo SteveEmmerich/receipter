@@ -1,0 +1,49 @@
+
+
+        <div class="list">
+
+            <label class="item item-input">
+                <input type="text" placeholder="Store Name" ng-model="receipt.store">
+            </label>
+             <label class="item item-input">
+                <input type="date" placeholder="Date" ng-model="receipt.date">
+            </label>
+            <label class="item item-input item-select"> <!-- TODO: fix categories-->
+                 <div class="input-label">
+                    Category
+                </div>
+                <select>
+                    <option ng-repeat="cat in categories" ng-selected="cat.selected">
+                        {{cat.name}}
+                    </option>
+                </select>
+            </label>
+            <div ng-repeat="it in receipt.items" class="item-input-inset">
+                <label class="item item-input">
+                    <input type="text" placeholder="Item Name" ng-model="it.name">
+                </label>
+                <label class="item item-input">
+                    <input type="tel" placeholder="Item Price" ng-model="it.cost"> 
+                    </br>
+                </label>
+                <label class="item item-input">
+                    <input type="tel" placeholder="Item Quantity" ng-model="it.quantity"> 
+                    </br>
+                </label>
+            </div>
+           <label class="item item">
+                {{(receipt.total=(receipt.items | fTotal)) | currency}}
+            </label>
+            <div>
+                <button class="button ion-plus" ng-click="addItem()"> 
+                    Add Item
+                </button>
+          
+                <button class="button ion-minus" ng-click="removeItem()"> 
+                    Remove Item
+                </button>
+            </div>
+        </div>
+ 
+
+

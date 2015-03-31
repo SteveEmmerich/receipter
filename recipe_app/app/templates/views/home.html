@@ -1,0 +1,69 @@
+<ion-view>
+  
+        
+    <ion-header-bar align-title="center" class="bar-positive">
+        <button 
+            class="button button-icon icon ion-navicon" 
+            menu-toggle="left">
+        </button>
+        <h1 class="title">receipter</h1>
+    </ion-header-bar>
+    <ion-header-bar class="bar-positive bar-subheader">
+        <div class="button-bar pull-right">
+              <button 
+                class="button button-icon icon ion-compose" 
+                ng-click="add()">
+            </button>
+            <button 
+                class="button button-icon icon ion-ios-photos-outline pull-right" 
+                ng-click="data.showDelete = false; data.showFilter = false; data.showSearch = false; data.showReorder = !data.showReorder">
+            </button>
+            <button 
+                class="button button-icon icon ion-funnel" 
+                ng-click="data.showFilter = !data.showFilter; data.showReorder = false; data.showDelete = false; data.showSearch = false">
+            </button>
+            <button 
+                class="button button-icon icon ion-ios-search pull-right" 
+                ng-click="data.showDelete = false; data.showReorder = false; data.showFilter = false; data.showSearch = !data.showSearch">
+            </button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content>
+        <div class="loader" ng-if="!receipts">
+            <ion-spinner></ion-spinner>
+        </div>
+      
+        <ion-list
+          show-delete="data.showDelete"
+          show-reorder="data.showReorder"
+          can-swipe="data.canSwipe">
+
+          <ion-item 
+            ng-repeat="item in receipts track by item._id"
+            class="item-thumbnail-left">
+
+            <img ng-src="{{item.img}}" alt="No Image">
+            <h2>{{item.store}}</h2>
+            <p>{{item.date}} {{(item.total | currency)}}</p>
+            <p>{{item.category}}</p>
+
+            <ion-option-button 
+                class="ion-edit"
+                ng-click="edit(item)">
+            </ion-option-button>
+            <ion-option-button 
+                class="ion-minus-circled"
+                ng-click="onItemDelete(item)">
+            </ion-option-button>
+            <ion-reorder-button 
+                class="ion-navicon"
+                on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+            </ion-reorder-button>
+
+          </ion-item>
+        </ion-list>
+
+    </ion-content>
+
+</ion-view>

@@ -12,10 +12,10 @@
                  <div class="input-label">
                     Category
                 </div>
-                <select>
-                    <option ng-repeat="cat in categories" ng-selected="cat.selected">
+                <select ng-model="receipt.category">
+                    <ng-option ng-repeat="cat in categories" >
                         {{cat.name}}
-                    </option>
+                    </ng-option>
                 </select>
             </label>
             <div ng-repeat="it in receipt.items" class="item-input-inset">

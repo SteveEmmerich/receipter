@@ -1,0 +1,19 @@
+<div class="list">
+    <label class="item item-input">
+        <input type="text" placeholder="Category Name" ng-model="cat.name">
+    </label>
+    
+    <label class="item item-input item-select"> <!-- TODO: fix categories-->
+         <div class="input-label">
+            Icon
+        </div>
+        <select ng-model="cat.icon">
+            <ng-option ng-repeat="icon in icons" ng-selected="cat.icon">
+                {{icon.name}}
+            </ng-option>
+        </select>
+    </label>
+</div>
+
+
+

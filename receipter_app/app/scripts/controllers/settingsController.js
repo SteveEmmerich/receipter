@@ -14,7 +14,7 @@ angular.module('Receipter')
     $scope.settings = [
     	{
     		checked: false,
-    		text: "Allow Push Notifications",
+    		text: 'Allow Push Notifications',
     		change: function()
     		{
     			//pushNotifications.$toggleSync();
@@ -23,7 +23,34 @@ angular.module('Receipter')
     	},
     	{
     		checked: false,
-    		text: "Allow Server Sync",
+    		text: 'Allow Server Sync',
+    		change: function()
+    		{
+    			receipts.$toggleSync();
+    		}
+
+    	},
+    	{
+    		checked: false,
+    		text: 'Allow Server Sync',
+    		change: function()
+    		{
+    			receipts.$toggleSync();
+    		}
+
+    	},
+    	{
+    		checked: false,
+    		text: 'Allow Server Sync',
+    		change: function()
+    		{
+    			receipts.$toggleSync();
+    		}
+
+    	},
+    	{
+    		checked: false,
+    		text: 'Allow Server Sync',
     		change: function()
     		{
     			receipts.$toggleSync();

@@ -8,6 +8,7 @@
  * Opens new and edit popup boxes.
  * 
  */
+// TODO: add function to save temp and return faux index
 angular.module('Receipter')
 	.factory('receiptService', function($rootScope, $ionicPopup, $log, $filter, $timeout, CATEGORIES) 
   	{
@@ -24,7 +25,7 @@ angular.module('Receipter')
 	  		{
 	  			scope.add = true;
 	  			scope.title = 'Add';
-	  			scope.receipt = {}
+	  			scope.receipt = {};
 	  			scope.receipt.items = [];
 	  			scope.receipt.category = {};
 	  			scope.receipt.date = $filter('date')(new Date(), 'MM-dd-yyyy');
@@ -46,7 +47,8 @@ angular.module('Receipter')
 	  			{
 	  				scope.receipt.items.pop();
 	  			}, 0, true);
-	  		}
+	  		};
+
 	  		scope.submit = function(done)
 	  		{
 	        	$log.debug('adding');
@@ -100,7 +102,7 @@ angular.module('Receipter')
 				}]
 	  		});
 
-		}
+		};
 	})
 	.filter('fTotal', function()
 	{
@@ -118,6 +120,6 @@ angular.module('Receipter')
 
 	  		//$scope.total = sum;
 	  		return sum;
-	  	}
+	  	};
 	});
 

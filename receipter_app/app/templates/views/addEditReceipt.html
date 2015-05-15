@@ -28,11 +28,15 @@
                     <input type="text" placeholder="Item Name" ng-model="it.name">
                 </label>
                 <label class="item item-input">
-                    <input type="tel" placeholder="Item Price" ng-model="it.cost"> 
+                    <input type="tel" placeholder="Item Price" ng-model="it.cost">
                     </br>
                 </label>
                 <label class="item item-input">
-                    <input type="tel" placeholder="Item Quantity" ng-model="it.quantity"> 
+                    <input type="tel" placeholder="Item Quantity" ng-model="it.quantity">
+                    </br>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Item Category" ng-model="it.category">
                     </br>
                 </label>
             </div>
@@ -43,15 +47,10 @@
                 {{($parent.total=(items | fTotal)) | currency}}
             </label>
             <div>
-                <button class="button ion-plus" ng-click="addItem()"> 
-                    Add Item
+                <button class="button ion-compose" ng-href="#/app.add.item">
+                    Edit Item
                 </button>
-          
-                <button class="button ion-minus" ng-click="removeItem()"> 
-                    Remove Item
-                </button>
-        
-                <button class="button ion-paper-airplane" ng-click="submit()"> 
+                <button class="button ion-paper-airplane" ng-click="submit()">
                     Submit
                 </button>
             </div>

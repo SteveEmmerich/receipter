@@ -1,0 +1,29 @@
+<div class="list">
+    <label class="item item-input">
+        <input type="text" placeholder="Item Name" ng-model="item.name">
+    </label>
+    <label class="item item-input">
+        <input type="tel" placeholder="Item Price" ng-model="item.cost">
+        </br>
+    </label>
+    <label class="item item-input">
+        <input type="tel" placeholder="Item Quantity" ng-model="item.quantity">
+        </br>
+    </label>
+   <label class="item item-input item-select"> <!-- TODO: fix categories-->
+         <div class="input-label">
+            Category
+        </div>
+        <select ng-model="item.category">
+            <ng-option ng-repeat="cat in categories" >
+                {{cat.name}}
+            </ng-option>
+        </select>
+    </label>
+     <label class="item item-input">
+        <p>item.total | currency</p>
+    </label>
+</div>
+
+
+

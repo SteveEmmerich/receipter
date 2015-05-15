@@ -7,9 +7,9 @@
  * # FormController
  */
 angular.module('Receipter')
-  .controller('EditController', function($log, $scope, $timeout, $params, $ionicPopup, pouchCollection) 
+  .controller('addEditReceiptController', function($log, $scope, $timeout, $params, $ionicPopup, pouchCollection)
   {
-      $scope.receipts = pouchCollection('receipts')
+      $scope.receipts = pouchCollection('receipts');
       $scope.receipt = $scope.receipts[$params];
   	  $scope.categories = [
         {
@@ -35,7 +35,7 @@ angular.module('Receipter')
   		{
   			$timeout(function()
   			{
-				var total = 0;  				
+				var total = 0;
   				$scope.receipt.items.forEach(function(item)
   				{
   					total += (item.cost * item.quantity);
@@ -59,14 +59,14 @@ angular.module('Receipter')
           }
         });
   		};
-      $scope.showAlert = function(done) 
+      $scope.showAlert = function(done)
       {
         var alertPopup = $ionicPopup.alert(
         {
           title: 'Receipt Saved!',
           template: ''
         });
-        alertPopup.then(function(res) 
+        alertPopup.then(function(res)
         {
             done(res);
         });

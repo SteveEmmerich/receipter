@@ -66,16 +66,42 @@ angular.module('Receipter', ['ionic', 'ngCordova', 'ngResource', 'pouchdb'])
           }
         }
       })
-      .state('app.form', 
+      .state('app.add.receipt',
       {
-        url: '/form',
+        url: '/add/receipt:id',
         cache: true,
         views: 
         {
           'viewContent': 
           {
-            templateUrl: 'templates/views/form.html',
-            controller: 'FormController'
+            templateUrl: 'templates/views/addEditReciept.html',
+            controller: 'addEditReceiptController'
+          }
+        }
+      })
+      .state('app.add.category',
+      {
+        url: '/add/category:id',
+        cache: true,
+        views:
+        {
+          'viewContent':
+          {
+            templateUrl: 'templates/views/addEditCategory.html',
+            controller: 'addEditCategoryController'
+          }
+        }
+      })
+      .state('app.add.item',
+      {
+        url: '/add/item:id',
+        cache: true,
+        views:
+        {
+          'viewContent':
+          {
+            templateUrl: 'templates/views/addEditItem.html',
+            controller: 'addEditItemController'
           }
         }
       })

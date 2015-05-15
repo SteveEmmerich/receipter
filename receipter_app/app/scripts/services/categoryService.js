@@ -16,7 +16,8 @@ angular.module('Receipter')
   	    scope.submit = function(done)
   	    {
   	        db.$add(scope.newCat);
-  	    }
+  	    };
+
         return {
             add: function(cat)
             {
@@ -42,13 +43,15 @@ angular.module('Receipter')
 				        onTap: function(e)
 				        {
 					        $ionicPopup.confirm({
-				                title: 'Save?',
-				                template: 'Are you sure?'
+				                    title: 'Save?',
+				                    template: 'Are you sure?'
 				                })				          
 				                .then(function(res)
 				                { 
-				                    if (res)       
+				                    if (res)
+                                    {
 					                    db.$add(cat);
+                                    }
 					            });
 					    }
 				    }]
@@ -78,13 +81,15 @@ angular.module('Receipter')
 				        onTap: function(e)
 				        {
 				            $ionicPopup.confirm({
-				                title: 'Save?',
-				                template: 'Are you sure?'
+                                    title: 'Save?',
+				                    template: 'Are you sure?'
 				                })				          
 				                .then(function(res)
 				                { 
-				                    if (res)       
+				                    if (res)
+                                    {
 					                    db.$update(cat);
+                                    }
 					            });
 					    }
 				    }]
@@ -98,14 +103,16 @@ angular.module('Receipter')
 	                })				          
 	                .then(function(res)
 	                { 
-	                    if (res)       
+	                    if (res)
+                        {
 		                    db.$remove(cat);
+                        }
 		            });
             },
             list: function()
             {
-                return db
+                return db;
             }
             
-        }
+        };
     });

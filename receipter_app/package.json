@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "author": "Steve Emmerich <email@example.com>",
   "description": "",
-  "dependencies": {},
+  "dependencies": {
+    "pouchdb": "^3.5.0"
+  },
   "devDependencies": {
     "beepbeep": "^1.2.0",
     "bower": "^1.3.3",

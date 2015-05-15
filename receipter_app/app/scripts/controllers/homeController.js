@@ -10,7 +10,7 @@ angular.module('Receipter')
   .controller('HomeController', function($scope, receiptService, $ionicPopup, $window, $timeout, pouchCollection) 
   {
 
-    $scope.receipts = pouchCollection('receipts');;
+    $scope.receipts = pouchCollection('receipts');
 
     $scope.data = {
       showDelete: false,

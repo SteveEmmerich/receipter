@@ -7,17 +7,21 @@
  * # FormController
  */
 angular.module('Receipter')
-  .controller('addEditReceiptController', function($log, $scope, $timeout, $params, $ionicPopup, pouchCollection)
-  {
-      $scope.receipts = pouchCollection('receipts');
-      $scope.receipt = $scope.receipts[$params];
-  	  $scope.categories = [
+    .controller('addEditReceiptController', function($log, $scope, $timeout, $stateParams, $ionicPopup, receiptService, categoryService)
+    {
+        $scope.receipts = receiptService.list();
+        $scope.receipt = $scope.receipts[$stateParams];
+        $scope.categories = categoryService.list();
+  		if (angular.isUndefined($stateParams.id) || $stateParams.id == -1)
         {
-          name: 'test',
-          selected: true
+            $scope.date = new Date();
+            $scope.id = -1;
         }
-      ];
-  		$scope.addItem = function()
+        else
+        {
+            $scope.id = $stateParams.id;
+        }
+        $scope.addItem = function()
   		{
   			$timeout(function()
   			{
@@ -44,20 +48,20 @@ angular.module('Receipter')
   		};
   		$scope.submit = function()
   		{
-        $log.debug('Saving');
-        $ionicPopup.confirm(
-        {
-          title: 'Save Receipt?',
-          template: ''
-        })
-        .then(function(res)
-        {
-          if(res)
-          {
-            $scope.receipts.$update($scope.receipt);
-            $scope.showAlert(function(res) {});
-          }
-        });
+            $log.debug('Saving');
+            $ionicPopup.confirm(
+            {
+              title: 'Save Receipt?',
+              template: ''
+            })
+            .then(function(res)
+            {
+              if(res)
+              {
+                $scope.receipts.$update($scope.receipt);
+                $scope.showAlert(function(res) {});
+              }
+            });
   		};
       $scope.showAlert = function(done)
       {

@@ -1,5 +1,8 @@
 <ion-view>
+
     <ion-header-bar align-title="center" class="bar-positive">
+
+
     <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
         <h1 class="title">Enter Receipt</h1>
     </ion-header-bar>
@@ -11,7 +14,10 @@
                 <input type="text" placeholder="Store Name" ng-model="$parent.storeName">
             </label>
              <label class="item item-input">
-                <input type="date" placeholder="Date" ng-model="$parent.date">
+              <!--  <input type="date" placeholder="Date" ng-model="$parent.date"> -->
+                <ionic-datepicker idate="date" > <!-- TODO: Datepicker -->
+                    <button class="button btn-default btn-sm button-positive"> {{ date | date:'dd - MMMM - yyyy' }} </button>
+                </ionic-datepicker>
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
@@ -23,7 +29,27 @@
                     </option>
                 </select>
             </label>
-            <div ng-repeat="it in items" class="item-input-inset">
+            <ion-list
+                show-delete="data.showDelete"
+
+                can-swipe="true">
+
+                <ion-item ng-repeat="item in items track by item._id">
+
+                    <h2>{{item.name}}</h2>
+                    <p>{{(item.total | currency)}}</p>
+                    <p>{{item.category}}</p>
+
+                    <ion-option-button
+                        class="ion-edit"
+                        ui-sref="app.item({id: receid: item._id})">
+                    </ion-option-button>
+                    <ion-option-button
+                        class="ion-minus-circled"
+                        ng-click="onItemDelete(item)">
+                    </ion-option-button>
+              </ion-item>
+            <!--<div ng-repeat="it in items" class="item-input-inset">
                 <label class="item item-input">
                     <input type="text" placeholder="Item Name" ng-model="it.name">
                 </label>
@@ -39,7 +65,7 @@
                     <input type="text" placeholder="Item Category" ng-model="it.category">
                     </br>
                 </label>
-            </div>
+            </div>-->
             <!--<label class="item item-input">
                 <input type="date" placeholder="Date Purchased" ng-model="date">
             </label>-->
@@ -47,11 +73,14 @@
                 {{($parent.total=(items | fTotal)) | currency}}
             </label>
             <div>
-                <button class="button ion-compose" ng-href="#/app.add.item">
-                    Edit Item
+                <button class="button ion-compose" ui-sref="app.item({id: -1})">
+                    Add Item
                 </button>
                 <button class="button ion-paper-airplane" ng-click="submit()">
                     Submit
+                </button>
+                 <button class="button ion-close-round" ng-click="cancel()">
+                    Cancel
                 </button>
             </div>
         </div>

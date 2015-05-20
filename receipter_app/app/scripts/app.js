@@ -11,7 +11,7 @@
 
 //var localDB = new PouchDB('receipts');
 //var remoteDB = new PouchDB('http://receipter.com:5984/receipts');
-angular.module('Receipter', ['ionic', 'ngCordova', 'ngResource', 'pouchdb'])
+angular.module('Receipter', ['ionic', 'ionic-datepicker', 'ionic-timepicker', 'ngCordova', 'ngResource', 'pouchdb', ])
 
   .run(function($ionicPlatform) 
   {
@@ -66,7 +66,7 @@ angular.module('Receipter', ['ionic', 'ngCordova', 'ngResource', 'pouchdb'])
           }
         }
       })
-      .state('app.add.receipt',
+      .state('app.receipt',
       {
         url: '/add/receipt:id',
         cache: true,
@@ -74,12 +74,12 @@ angular.module('Receipter', ['ionic', 'ngCordova', 'ngResource', 'pouchdb'])
         {
           'viewContent': 
           {
-            templateUrl: 'templates/views/addEditReciept.html',
+            templateUrl: 'templates/views/addEditReceipt.html',
             controller: 'addEditReceiptController'
           }
         }
       })
-      .state('app.add.category',
+      .state('app.category',
       {
         url: '/add/category:id',
         cache: true,
@@ -92,7 +92,7 @@ angular.module('Receipter', ['ionic', 'ngCordova', 'ngResource', 'pouchdb'])
           }
         }
       })
-      .state('app.add.item',
+      .state('app.item',
       {
         url: '/add/item:id',
         cache: true,

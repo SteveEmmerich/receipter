@@ -7,7 +7,7 @@
  * # HomeController
  */
 angular.module('Receipter')
-  .controller('HomeController', function($scope, receiptService, $ionicPopup, $window, $timeout, pouchCollection) 
+  .controller('HomeController', function($rootScope,$scope, receiptService, $ionicPopup, $window, $timeout, pouchCollection)
   {
 
     $scope.receipts = pouchCollection('receipts');
@@ -17,7 +17,10 @@ angular.module('Receipter')
       showReorder: false,
       canSwipe: true
     };
-  
+    $scope.retrieveNext = function()
+    {
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+    };
     $scope.edit = function(item) 
     {
       receiptService(item, $scope.receipts);

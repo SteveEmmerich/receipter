@@ -1,0 +1,8 @@
+[
+
+    "bower_components/ionic/release/css/ionic.css",
+
+    "bower_components/ionic-datepicker/dist/style.css",
+
+    "bower_components/ionic-timepicker/dist/style.css"
+]

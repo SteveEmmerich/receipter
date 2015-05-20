@@ -69,9 +69,12 @@ gulp.task('styles', function() {
 
   var sassStream = plugins.rubySass('app/styles/main.scss', options)
       .pipe(plugins.autoprefixer('last 1 Chrome version', 'last 3 iOS versions', 'last 3 Android versions'))
-
+  var vendor = require('./vendorCss.json');
+ // console.log('test',vendor);
   var cssStream = gulp
-    .src('bower_components/ionic/css/ionic.min.css');
+    .src(vendor);
+    //.src('bower_components/ionic/release/css/ionic.min.css');
+    //.src('bower_components/ionic-datepicker/dist/style.css');
 
   return streamqueue({ objectMode: true }, cssStream, sassStream)
     .pipe(plugins.concat('main.css'))
@@ -124,7 +127,7 @@ gulp.task('scripts', function() {
 // copy fonts
 gulp.task('fonts', function() {
   return gulp
-    .src(['app/fonts/*.*', 'bower_components/ionic/fonts/*.*'])
+    .src(['app/fonts/*.*', 'bower_components/ionic/release/fonts/*.*'])
 
     .pipe(gulp.dest(path.join(targetDir, 'fonts')))
 
@@ -181,6 +184,7 @@ gulp.task('jsHint', function(done) {
 // concatenate and minify vendor sources
 gulp.task('vendor', function() {
   var vendorFiles = require('./vendor.json');
+  //var vendorCss = require('./vendorCss.json');
 
   return gulp.src(vendorFiles)
     .pipe(plugins.concat('vendor.js'))
@@ -192,7 +196,19 @@ gulp.task('vendor', function() {
     .on('error', errorHandler);
 });
 
+// concatenate and minify vendor sources
+/*gulp.task('vendorCss', function() {
+  var vendorFiles = require('./vendorCss.json');
 
+  return gulp.src(vendorFiles)
+    .pipe(plugins.concat('vendor.css'))
+    .pipe(plugins.if(build, plugins.uglify()))
+    .pipe(plugins.if(build, plugins.rev()))
+
+    .pipe(gulp.dest(targetDir))
+
+    .on('error', errorHandler);
+});*/
 // inject the files in index.html
 gulp.task('index', ['jsHint', 'scripts'], function() {
 
@@ -285,7 +301,7 @@ gulp.task('ripple', ['scripts', 'styles', 'watchers'], function() {
 // start watchers
 gulp.task('watchers', function() {
   plugins.livereload.listen();
-  gulp.watch('app/styles/**/*.scss', ['styles']);
+  gulp.watch(['app/styles/**/*.scss', './vendorCss.json'], ['styles']);
   gulp.watch('app/fonts/**', ['fonts']);
   gulp.watch('app/icons/**', ['iconfont']);
   gulp.watch('app/images/**', ['images']);

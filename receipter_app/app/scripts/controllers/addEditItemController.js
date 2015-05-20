@@ -7,22 +7,22 @@
  * # FormController
  */
 angular.module('Receipter')
-    .controller('addEditItemController', function($log, $scope, $timeout, $params, $ionicPopup, $location, $ionicModal, categoryService, receiptService)
+    .controller('addEditItemController', function($log, $scope, $timeout, $stateParams, $ionicPopup, $location, $ionicModal, categoryService, receiptService)
     {
 
         var blankItem = {name: '', cost: '', quantity: 1, category: '', total: 0};
         $scope.receipts = receiptService.list;
-        $scope.receipt = $scope.receipts[$params.id];
+        $scope.receipt = $scope.receipts[$stateParams.id];
         $scope.categories = categoryService.list; //TODO: change these services to be a one stop shop fo r managing receipts and categories
-        if ($params.iid) //If iid we are editing an item
+        if ($stateParams.iid) //If iid we are editing an item
         {
-            $scope.item = $scope.receipt.items[$params.iid];
+            $scope.item = $scope.receipt.items[$stateParams.iid];
         }
         else // Otherwise we are adding an item
         {
             $scope.item = blankItem;
         }
-        $ionicModal.fromTemplateUrl('templates/addEditCategory.html', {
+        $ionicModal.fromTemplateUrl('templates/addEditItem.html', {
           scope: $scope,
           animation: 'slide-in-up'
         }).then(function(modal)
@@ -70,9 +70,9 @@ angular.module('Receipter')
                         {
                           title: 'Receipt Saved!',
                           template: ''
-                        }).then(fucntion(res)
+                        }).then(function(res)
                         {
-                            if ($params.iid)
+                            if ($stateParams.iid)
                             {
                                 $scope.closeModal();
                             }
@@ -114,7 +114,7 @@ angular.module('Receipter')
                         {
                           title: 'Item Removed!',
                           template: ''
-                        }).then(fucntion(res)
+                        }).then(function(res)
                         {
                             $scope.closeModal();
                         });
@@ -131,6 +131,6 @@ angular.module('Receipter')
   			});
   		};
 
-    };
+    });
 
 

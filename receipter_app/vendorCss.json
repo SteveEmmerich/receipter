@@ -4,5 +4,6 @@
 
     "bower_components/ionic-datepicker/dist/style.css",
 
-    "bower_components/ionic-timepicker/dist/style.css"
+    "bower_components/ionic-timepicker/dist/style.css",
+    "bower_components/ionic-select/dist/style.css"
 ]

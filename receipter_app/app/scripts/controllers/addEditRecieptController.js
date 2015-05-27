@@ -11,15 +11,20 @@ angular.module('Receipter')
     {
         $scope.receipts = receiptService.list();
         $scope.receipt = $scope.receipts[$stateParams];
-        $scope.categories = categoryService.list();
-  		if (angular.isUndefined($stateParams.id) || $stateParams.id == -1)
+        $scope.categories = ['1','2']; //categoryService.list();
+        $scope.selectedCat = '1';
+
+        $log.debug($stateParams);
+  		if (angular.isUndefined($stateParams.id) || $stateParams.id == -1 || $stateParams.id == "")
         {
-            $scope.date = new Date();
+            $scope.idate = new Date();
             $scope.id = -1;
+            $log.debug($scope.idate);
         }
         else
         {
             $scope.id = $stateParams.id;
+            $log.debug('receipt Id: ' + JSON.stringify($scope.id));
         }
         $scope.addItem = function()
   		{

@@ -12,8 +12,10 @@
     "bower_components/angular-pouchdb/angular-pouchdb.js",
     "bower_components/jquery/dist/jquery.js",
     "bower_components/patternLock/patternLock.js",
-    "bower_components/ionic-datepicker/dist/ionic-datepicker.js",
+    "bower_components/ionic-datepicker/src/ionic-datepicker.js",
     "bower_components/ionic-datepicker/dist/templates.js",
     "bower_components/ionic-timepicker/dist/ionic-timepicker.js",
-    "bower_components/ionic-timepicker/dist/templates.js"
+    "bower_components/ionic-timepicker/dist/templates.js",
+    "bower_components/ionic-select/src/ionic-select.js",
+    "bower_components/ionic-select/dist/templates.js"
 ]

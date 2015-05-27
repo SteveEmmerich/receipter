@@ -15,26 +15,22 @@
             </label>
              <label class="item item-input">
               <!--  <input type="date" placeholder="Date" ng-model="$parent.date"> -->
-                <ionic-datepicker idate="date" > <!-- TODO: Datepicker -->
-                    <button class="button btn-default btn-sm button-positive"> {{ date | date:'dd - MMMM - yyyy' }} </button>
+                <ionic-datepicker idate="$parent.idate" > <!-- TODO: Datepicker -->
+                    <button class="button button-outline button-small button-positive"> {{ idate | date:'dd - MMMM - yyyy' }} </button>
                 </ionic-datepicker>
             </label>
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    Category
-                </div>
-                <select>
-                    <option ng-repeat="cat in categories" ng-selected="cat.selected">
-                        {{cat.name}}
-                    </option>
-                </select>
+           <label class="item item-input">
+
+                <ion-select collection="$parent.categories" selected="$parent.selectedCat" title="Categories">
+                     <button class="button button-outline button-small button-positive"> {{$parent.selectedCat}} </button>
+                </ion-select>
             </label>
             <ion-list
                 show-delete="data.showDelete"
 
                 can-swipe="true">
 
-                <ion-item ng-repeat="item in items track by item._id">
+                <ion-item collection-repeat="item in items track by item._id">
 
                     <h2>{{item.name}}</h2>
                     <p>{{(item.total | currency)}}</p>
@@ -42,7 +38,7 @@
 
                     <ion-option-button
                         class="ion-edit"
-                        ui-sref="app.item({id: receid: item._id})">
+                        ui-sref="app.item({id: $parent.id, iid: item._id})">
                     </ion-option-button>
                     <ion-option-button
                         class="ion-minus-circled"

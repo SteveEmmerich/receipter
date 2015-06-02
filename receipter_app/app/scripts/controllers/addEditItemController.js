@@ -7,22 +7,29 @@
  * # FormController
  */
 angular.module('Receipter')
-    .controller('addEditItemController', function($log, $scope, $timeout, $stateParams, $ionicPopup, $location, $ionicModal, categoryService, receiptService)
+    .controller('addEditItemController', function($log, $scope, $timeout, $stateParams, $ionicPopup, $state, $ionicModal, categoryService, receiptService)
     {
 
-        var blankItem = {name: '', cost: '', quantity: 1, category: '', total: 0};
-        $scope.receipts = receiptService.list;
-        $scope.receipt = $scope.receipts[$stateParams.id];
-        $scope.categories = categoryService.list; //TODO: change these services to be a one stop shop fo r managing receipts and categories
-        if ($stateParams.iid) //If iid we are editing an item
+        var blankItem = {name: '', cost: '', quantity: 1, category: 'None', total: 0};
+       // $scope.receipts = receiptService.list();
+
+        $scope.categories = categoryService.list(); //TODO: change these services to be a one stop shop fo r managing receipts and categories
+        // TODO: add in stuff for temp receipt
+        $scope.receipt = receiptService.getTemp().receipt;
+        if (angular.isDefined($stateParams.iid) && $stateParams.iid != -1) //If iid we are editing an item
         {
-            $scope.item = $scope.receipt.items[$stateParams.iid];
+                $log.debug($scope.receipt);
+                $scope.item = $scope.receipt.items[$stateParams.iid];
         }
+
         else // Otherwise we are adding an item
         {
             $scope.item = blankItem;
+           // $scope.receipt = receiptService.getTemp().receipt;
         }
-        $ionicModal.fromTemplateUrl('templates/addEditItem.html', {
+       /* $ionicModal
+            .fromTemplateUrl('templates/views/addEditItem.html',
+        {
           scope: $scope,
           animation: 'slide-in-up'
         }).then(function(modal)
@@ -51,7 +58,7 @@ angular.module('Receipter')
         $scope.$on('modal.removed', function()
         {
             // Execute action
-        });
+        });*/
   		$scope.saveItem = function()
   		{
             $ionicPopup.confirm(
@@ -64,18 +71,25 @@ angular.module('Receipter')
                 {
                     $timeout(function()
                     {
-                        $scope.receipt.items.push($scope.item);
+                        if ($stateParams.iid > -1)
+                        {
+                            $scope.receipt.items[$stateParams.iid] = $scope.item;
+                        }
+                        else
+                        {
+                            $scope.item._id = $scope.receipt.items.length;
+                            $scope.receipt.items.push($scope.item); //<- TODO: next
+                        }
                         $scope.item = {name: '', cost: '', quantity: 1, category: ''};
                         $ionicPopup.alert(
                         {
-                          title: 'Receipt Saved!',
+                          title: 'Item Saved!',
                           template: ''
                         }).then(function(res)
                         {
-                            if ($stateParams.iid)
-                            {
-                                $scope.closeModal();
-                            }
+
+                            receiptService.saveTemp($scope.receipt, {});
+                            $state.go('^.receipt', {id: $scope.receipt._id});
 
                         });
                     }, 0, true);
@@ -93,42 +107,23 @@ angular.module('Receipter')
             {
                 if (res)
                 {
-                    $scope.closeModal();
+                    //$scope.closeModal();
+
+                    $state.go('^.receipt', {id: $scope.receipt._id});
                 }
             });
         };
-        $scope.removeItem = function()
-  		{
-            $ionicPopup.confirm(
-            {
-                title: 'Remove Item?',
-                template: ''
-            }).then(function(res)
-            {
-                if (res)
-                {
-                    $timeout(function()
-                    {
-                        $scope.receipt.items.pop();
-                        $ionicPopup.alert(
-                        {
-                          title: 'Item Removed!',
-                          template: ''
-                        }).then(function(res)
-                        {
-                            $scope.closeModal();
-                        });
-                    }, 0, true);
-                }
-            });
-  		};
+
+
         //TODO: Adding modal for item adding. should be to the point of adding up the total cost of items. still need to fix the nav and categoies.
   		$scope.getTotal = function()
   		{
+
   			$timeout(function()
   			{
-  		        var total = ($scope.item.cost * $scope.item.quantity);
+  		         $scope.item.total = ($scope.item.cost * $scope.item.quantity);
   			});
+            return $scope.item.total;
   		};
 
     });

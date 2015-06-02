@@ -20,7 +20,7 @@ angular.module('Receipter')
   	    };
 
         return {
-            add: function(receipt)
+            add: function(receipt, cb)
             {
                 $ionicPopup.confirm(
                 {
@@ -39,11 +39,12 @@ angular.module('Receipter')
                         $timeout(function()
                         {
                             saved.close();
+                            cb();
                         }, 3);
                     }
                 });
             },
-            edit: function(receipt)
+            update: function(receipt, cb)
             {
                 scope.title = 'Edit Category';
 
@@ -64,13 +65,14 @@ angular.module('Receipter')
                         $timeout(function()
                         {
                             saved.close();
+                            cb();
                         }, 3);
                     }
                 });
 
 
             },
-            remove: function(receipt)
+            remove: function(receipt, cb)
             {
                 $ionicPopup.confirm({
 	                title: 'Remove',
@@ -88,6 +90,7 @@ angular.module('Receipter')
                             $timeout(function()
                             {
                                 saved.close();
+                                cb();
                             }, 3);
                         }
 		            });
@@ -103,7 +106,24 @@ angular.module('Receipter')
             },
             getTemp: function()
             {
-                return {receipt: scope.tempReceipt, item: scope.tempItem};
+                var tRep = angular.copy(scope.tempReceipt);
+                var tItm = angular.copy(scope.tempItem);
+               // scope.tempReceipt = undefined;
+            //    scope.tempItem = undefined;
+                return {receipt: tRep, item: tItm};
+            },
+            loadReceipt(id, cb)
+            {
+                db.$db.get(id).then(
+                    function(item)
+                    {
+                        scope.tempReceipt = item;
+                        cb(null, item);
+                    });
+            },
+            unloadReceipt(id)
+            {
+                scope.tempReceipt = undefined;
             }
 
         }

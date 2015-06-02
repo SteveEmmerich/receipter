@@ -85,7 +85,7 @@ angular.module('pouchdb')
       {
         indexes[item._id] = index;
         collection.splice(index,0,item);
-        console.log('added: ', index, item);
+        //console.log('added: ', index, item);
       }
 
       function removeChild(id) 

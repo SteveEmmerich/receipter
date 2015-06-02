@@ -39,9 +39,10 @@
             ng-repeat="item in receipts track by item._id"
             class="item-thumbnail-left">
 
-            <img ng-src="{{item.img}}" alt="No Image">
-            <h2>{{item.store}}</h2>
-            <p>{{item.date}} {{(item.total | currency)}}</p>
+            <img ng-show="{{item.img}}" ng-src="{{item.img}}" alt="No Image">
+            <h2>{{item.storeName}}</h2>
+            <p>{{item.date | date:'dd - MMMM - yyyy'}} </p>
+            <p>{{(item.total | currency)}}</p>
             <p>{{item.category}}</p>
 
             <ion-option-button 

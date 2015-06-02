@@ -7,11 +7,11 @@
  * # HomeController
  */
 angular.module('Receipter')
-  .controller('HomeController', function($rootScope,$scope, receiptService, $ionicPopup, $window, $timeout, pouchCollection)
+  .controller('HomeController', function($rootScope,$scope, receiptService, $ionicPopup, $window, $timeout, $state, $log, pouchCollection)
   {
 
-    $scope.receipts = pouchCollection('receipts');
-
+    $scope.receipts = receiptService.list();//pouchCollection('receipts');
+    $log.debug($scope.receipts);
     $scope.data = {
       showDelete: false,
       showReorder: false,
@@ -23,7 +23,8 @@ angular.module('Receipter')
     };
     $scope.edit = function(item) 
     {
-      receiptService(item, $scope.receipts);
+      //receiptService(item, $scope.receipts);
+        $state.go('^.receipt', {id: item._id});
       /*$ionicPopup.prompt(
       {
         title: 'Edit ' + item.store,
@@ -33,10 +34,6 @@ angular.module('Receipter')
       {
         $window.location.href = '#/receipt/' + item._id;
       });*/
-    };
-    $scope.add = function()
-    {
-      receiptService(null, $scope.receipts);
     };
 
     

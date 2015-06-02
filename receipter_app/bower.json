@@ -20,7 +20,9 @@
     "angular-ui-router": "0.2.15",
     "angular-animate": "1.4.0-rc.2",
     "angular-sanitize": "1.4.0-rc.2",
-    "ionic-select": "https://github.com/SteveEmmerich/ionic-select.git"
+    "ionic-select": "https://github.com/SteveEmmerich/ionic-select.git",
+    "ionic-material": "~0.4.2",
+    "robotodraft": "~1.1.0"
   },
   "resolutions": {
     "pouchdb": "~3.5.0",

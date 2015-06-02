@@ -1,0 +1,34 @@
+<ion-header-bar class="bar-positive bar-subheader">
+    <div class="button-bar pull-right">
+        <button
+            class="button button-icon icon ion-ios-photos-outline pull-right"
+            ng-click="showDelete = false; showFilter = false; showSearch = false; showReorder = !showReorder">
+        </button>
+        <button
+            class="button button-icon icon ion-funnel"
+            ng-click="showFilter = !showFilter; showReorder = false; showDelete = false; showSearch = false">
+        </button>
+        <button
+            class="button button-icon icon ion-ios-search pull-right"
+            ng-click="showDelete = false; showReorder = false; showFilter = false; showSearch = !showSearch">
+        </button>
+    </div>
+</ion-header-bar>
+
+<ion-content>
+    <div class="loader" ng-if="!categories">
+        <ion-spinner></ion-spinner>
+    </div>
+    <ion-list
+        show-delete="showDelete"
+        show-reorder="showReorder"
+        can-swipe="canSwipe">
+
+        <ion-item
+            ng-repeat="item in categories track by item._id"
+            class="item-thumbnail-left">
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+

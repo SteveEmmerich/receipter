@@ -7,37 +7,66 @@
  * # FormController
  */
 angular.module('Receipter')
-    .controller('addEditReceiptController', function($log, $scope, $timeout, $stateParams, $ionicPopup, receiptService, categoryService)
+    .controller('addEditReceiptController', function($rootScope, $log, $scope, $timeout, $stateParams, $ionicPopup, $state, receiptService, categoryService)
     {
         $scope.receipts = receiptService.list();
-        $scope.receipt = $scope.receipts[$stateParams];
-        $scope.categories = ['1','2']; //categoryService.list();
-        $scope.selectedCat = '1';
-
+        $scope.categories = categoryService.list();
+        //$scope.selectedCat = 'None';
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams)
+            {
+                if(fromState.name === 'app.item')
+                {
+                    $scope.receipt = receiptService.getTemp().receipt;
+                    $log.debug('chaged from item', $scope.receipt);
+                }
+                $log.debug('state changed', toState, fromState);
+            });
         $log.debug($stateParams);
-  		if (angular.isUndefined($stateParams.id) || $stateParams.id == -1 || $stateParams.id == "")
+  		if (angular.isUndefined($stateParams.id) || $stateParams.id == "")
         {
-            $scope.idate = new Date();
+            $scope.receipt = {};
+            $scope.storeName = '';
+            $scope.receipt.date = new Date();
             $scope.id = -1;
-            $log.debug($scope.idate);
+            $scope.receipt.items = [];
+            $scope.receipt.category = 'None';
+            $scope.receipt._id = -1;
+            receiptService.saveTemp($scope.receipt);
+            $log.debug($scope.receipt.date);
+        }
+        else if ( $stateParams.id == -1)
+        {
+            $scope.receipt = receiptService.getTemp().receipt;
+            $scope.id = $scope.receipt._id;
         }
         else
         {
+            receiptService.loadReceipt($stateParams.id,
+                function(err, item)
+                {
+                    $scope.receipt = item;
+                });
+
             $scope.id = $stateParams.id;
+
             $log.debug('receipt Id: ' + JSON.stringify($scope.id));
         }
+        $scope.onEditItem = function(item)
+        {
+            receiptService.saveTemp($scope.receipt, item);
+            $state.go('^.item', {id: $scope.receipt._id, iid: item._id});
+        };
         $scope.addItem = function()
   		{
-  			$timeout(function()
-  			{
-  				$scope.receipt.items.push({name: '', cost: '', quantity: 1});
-  			}, 0, true);
+  			receiptService.saveTemp($scope.receipt, {});
+            $state.go('^.item', {id: $scope.receipt._id, iid: -1});
   		};
-  		$scope.removeItem = function()
+  		$scope.removeItem = function(item)
   		{
   			$timeout(function()
   			{
-  				$scope.receipt.items.pop();
+  				$scope.receipt.items.splice(item._id);
   			}, 0, true);
   		};
   		$scope.getTotal = function()
@@ -54,32 +83,41 @@ angular.module('Receipter')
   		$scope.submit = function()
   		{
             $log.debug('Saving');
+
+            if ($scope.id == -1)
+            {
+                $scope.receipt._id = undefined;
+                receiptService.add($scope.receipt, function()
+                {
+                    receiptService.unloadReceipt();
+                    $state.go('^.home');
+                });
+            }
+            else
+            {
+                receiptService.update($scope.receipt, function()
+                {
+                    receiptService.unloadReceipt();
+                    $state.go('^.home');
+                });
+            }
+
+  		};
+        $scope.cancel = function()
+        {
             $ionicPopup.confirm(
             {
-              title: 'Save Receipt?',
-              template: ''
-            })
-            .then(function(res)
+                title: 'Discard Changes?',
+                template: ''
+            }).then(function(res)
             {
-              if(res)
-              {
-                $scope.receipts.$update($scope.receipt);
-                $scope.showAlert(function(res) {});
-              }
+                if (res)
+                {
+                    $state.go('^.home');
+                }
             });
-  		};
-      $scope.showAlert = function(done)
-      {
-        var alertPopup = $ionicPopup.alert(
-        {
-          title: 'Receipt Saved!',
-          template: ''
-        });
-        alertPopup.then(function(res)
-        {
-            done(res);
-        });
-      };
+        };
+
   })
   .filter('fTotal', function()
   {

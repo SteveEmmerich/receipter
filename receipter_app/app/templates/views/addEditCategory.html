@@ -1,18 +1,26 @@
 <div class="list">
     <label class="item item-input">
-        <input type="text" placeholder="Category Name" ng-model="cat.name">
+        <input type="text" placeholder="Category Name" ng-model="category.name">
     </label>
     
-    <label class="item item-input item-select"> <!-- TODO: fix categories-->
-         <div class="input-label">
+   <!-- <label class="item item-input item-select">  TODO: fix categories-->
+     <!--    <div class="input-label">
             Icon
         </div>
-        <select ng-model="cat.icon">
-            <ng-option ng-repeat="icon in icons" ng-selected="cat.icon">
+        <ion-grid-select ng-model="category.icon">
+            <ng-option ng-repeat="icon in icons" ng-selected="category.icon">
                 {{icon.name}}
             </ng-option>
-        </select>
-    </label>
+        </ion-grid-select>
+    </label>-->
+</div>
+<div>
+    <button class="button ion-paper-airplane" ng-click="save()">
+        Save
+    </button>
+    <button class="button ion-close-round" ng-click="cancel()">
+        Cancel
+    </button>
 </div>
 
 

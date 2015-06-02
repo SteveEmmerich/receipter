@@ -33,68 +33,118 @@ angular.module('Receipter', ['ionic', 'ionic-datepicker', 'ionic-timepicker', 'i
 
     // Application routing
     $stateProvider
-      .state('app', 
-      {
-        url: '/app',
-        abstract: true,
-        templateUrl: 'templates/main.html',
-        controller: 'MainController'
-      })
-      .state('app.home', 
-      {
-        url: '/home',
-        cache: true,
-        views: 
+        .state('app',
         {
-          'viewContent': 
-          {
-            templateUrl: 'templates/views/home.html',
-            controller: 'HomeController'
-          }
-        }
-      })
-      .state('app.settings', 
-      {
-        url: '/settings',
-        cache: true,
-        views: 
+            url: '/app',
+            abstract: true,
+            templateUrl: 'templates/main.html',
+            controller: 'MainController'
+        })
+        .state('app.home',
         {
-          'viewContent': 
-          {
-            templateUrl: 'templates/views/settings.html',
-            controller: 'SettingsController'
-          }
-        }
-      })
-      .state('app.receipt',
-      {
-        url: '/add/receipt:id',
-        cache: true,
-        views: 
+            url: '/home',
+            cache: true,
+            views:
+            {
+              'viewContent':
+              {
+                templateUrl: 'templates/views/home.html',
+                controller: 'HomeController'
+              }
+            }
+        })
+        .state('app.settings',
         {
-          'viewContent': 
-          {
-            templateUrl: 'templates/views/addEditReceipt.html',
-            controller: 'addEditReceiptController'
-          }
-        }
-      })
-      .state('app.category',
-      {
-        url: '/add/category:id',
-        cache: true,
-        views:
+            url: '/settings',
+            cache: true,
+            views:
+            {
+              'viewContent':
+              {
+                templateUrl: 'templates/views/settings.html',
+                controller: 'SettingsController'
+              }
+            }
+        })
+        .state('app.receipt',
         {
-          'viewContent':
-          {
-            templateUrl: 'templates/views/addEditCategory.html',
-            controller: 'addEditCategoryController'
-          }
-        }
-      })
+            url: '/add/receipt/:id',
+            cache: true,
+            views:
+            {
+              'viewContent':
+              {
+                templateUrl: 'templates/views/addEditReceipt.html',
+                controller: 'addEditReceiptController'
+              }
+            }
+        })
+        .state('app.category',
+        {
+            url: '/category',
+            abstract: true,
+            //cache: true,
+            views:
+            {
+                'viewContent':
+                {
+                    templateUrl: 'templates/views/categories.html'
+                }
+            }
+
+        })
+        .state('app.category.list',
+        {
+            url: '/list',
+            cache: false,
+            views:
+            {
+                categories:
+                {
+                    templateUrl: 'templates/views/listCategories.html',
+                    controller: 'listCategoriesController'
+                }
+            }
+        })
+        .state('app.category.add',
+        {
+            url: '/add',
+            cache: true,
+            views:
+            {
+                categories:
+                {
+                    templateUrl: 'templates/views/addEditCategory.html',
+                    controller: 'addEditCategoryController'
+                }
+            }
+        })
+        .state('app.category.edit',
+        {
+            url: '/edit/:id',
+            cache: true,
+            views:
+            {
+                categories:
+                {
+                    templateUrl: 'templates/views/addEditCategory.html',
+                    controller: 'addEditCategoryController'
+                }
+            }
+        })
+
+      //  views:
+    //    {
+      //    'viewContent':
+        //  {
+        //    templateUrl: 'templates/views/addEditCategory.html',
+        //    controller: 'addEditCategoryController'
+        //  }
+        //}
+      //})
       .state('app.item',
       {
-        url: '/add/item:id',
+        url: '/add/item/:id/:iid',
         cache: true,
         views:
         {

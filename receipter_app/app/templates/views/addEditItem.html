@@ -12,17 +12,17 @@
     </label>
    <label class="item item-input">
         <ion-select collection="$parent.categories" selected="item.category">
-             <button class="button button-outline button-small button-positive"> {{item.selectedCat}} </button>
+             <button class="button button-outline button-small button-positive"> {{item.category}} </button>
         </ion-select>
     </label>
      <label class="item item-input">
-        <p>item.total | currency</p>
+        <p>{{getTotal() | currency}}</p>
     </label>
      <div>
-        <button class="button ion-paper-airplane" ng-click="save()">
+        <button class="button ion-paper-airplane" ng-click="saveItem()">
             Save
         </button>
-        <button class="button ion-close-round" ng-click="cancel()">
+        <button class="button ion-close-round" ng-click="cancelItem()">
             Cancel
         </button>
     </div>

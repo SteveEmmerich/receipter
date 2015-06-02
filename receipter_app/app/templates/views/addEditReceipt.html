@@ -11,65 +11,48 @@
         <div class="list">
 
             <label class="item item-input">
-                <input type="text" placeholder="Store Name" ng-model="$parent.storeName">
+                <input type="text" placeholder="Store Name" ng-model="$parent.receipt.storeName">
             </label>
              <label class="item item-input">
               <!--  <input type="date" placeholder="Date" ng-model="$parent.date"> -->
-                <ionic-datepicker idate="$parent.idate" > <!-- TODO: Datepicker -->
-                    <button class="button button-outline button-small button-positive"> {{ idate | date:'dd - MMMM - yyyy' }} </button>
+                <ionic-datepicker idate="$parent.receipt.date" > <!-- TODO: Datepicker -->
+                    <button class="button button-outline button-small button-positive"> {{ receipt.date | date:'dd - MMMM - yyyy' }} </button>
                 </ionic-datepicker>
             </label>
            <label class="item item-input">
 
-                <ion-select collection="$parent.categories" selected="$parent.selectedCat" title="Categories">
-                     <button class="button button-outline button-small button-positive"> {{$parent.selectedCat}} </button>
+                <ion-select collection="$parent.categories" selected="$parent.receipt.category" title="Categories">
+                     <button class="button button-outline button-small button-positive"> {{$parent.receipt.category}} </button>
                 </ion-select>
             </label>
-            <ion-list
-                show-delete="data.showDelete"
+            <div class="item item" ng-show="receipt.items.length">
+                <ion-list
+                    show-delete="data.showDelete"
 
-                can-swipe="true">
+                    can-swipe="true">
 
-                <ion-item collection-repeat="item in items track by item._id">
+                        <ion-item ng-repeat="item in receipt.items track by item._id">
+                            <h2>{{item.name}}</h2>
+                            <p>{{(item.total | currency)}}</p>
+                            <p>{{item.category}}</p>
 
-                    <h2>{{item.name}}</h2>
-                    <p>{{(item.total | currency)}}</p>
-                    <p>{{item.category}}</p>
+                            <ion-option-button
+                                class="ion-edit"
+                                ng-click="onEditItem(item)">
+                            </ion-option-button>
+                            <ion-option-button
+                                class="ion-minus-circled"
+                                ng-click="onItemDelete(item)">
+                            </ion-option-button>
+                        </ion-item>
+                </ion-list>
+            </div>
 
-                    <ion-option-button
-                        class="ion-edit"
-                        ui-sref="app.item({id: $parent.id, iid: item._id})">
-                    </ion-option-button>
-                    <ion-option-button
-                        class="ion-minus-circled"
-                        ng-click="onItemDelete(item)">
-                    </ion-option-button>
-              </ion-item>
-            <!--<div ng-repeat="it in items" class="item-input-inset">
-                <label class="item item-input">
-                    <input type="text" placeholder="Item Name" ng-model="it.name">
-                </label>
-                <label class="item item-input">
-                    <input type="tel" placeholder="Item Price" ng-model="it.cost">
-                    </br>
-                </label>
-                <label class="item item-input">
-                    <input type="tel" placeholder="Item Quantity" ng-model="it.quantity">
-                    </br>
-                </label>
-                <label class="item item-input">
-                    <input type="text" placeholder="Item Category" ng-model="it.category">
-                    </br>
-                </label>
-            </div>-->
-            <!--<label class="item item-input">
-                <input type="date" placeholder="Date Purchased" ng-model="date">
-            </label>-->
            <label class="item item">
-                {{($parent.total=(items | fTotal)) | currency}}
+                {{($parent.receipt.total=(receipt.items | fTotal)) | currency}}
             </label>
             <div>
-                <button class="button ion-compose" ui-sref="app.item({id: -1})">
+                <button class="button ion-compose" ng-click="addItem()">
                     Add Item
                 </button>
                 <button class="button ion-paper-airplane" ng-click="submit()">

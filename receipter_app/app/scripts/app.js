@@ -11,7 +11,7 @@
 
 //var localDB = new PouchDB('receipts');
 //var remoteDB = new PouchDB('http://receipter.com:5984/receipts');
-angular.module('Receipter', ['ionic', 'ionic-datepicker', 'ionic-timepicker', 'ionic-select', 'ngCordova', 'ngResource', 'pouchdb', ])
+angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ionic-timepicker', 'ionic-select', 'ngCordova', 'ngResource', 'pouchdb', ])
 
   .run(function($ionicPlatform) 
   {

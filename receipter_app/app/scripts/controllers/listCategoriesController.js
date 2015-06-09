@@ -19,12 +19,12 @@ angular.module('Receipter')
         {
             $scope.data.showDelete = false;
             $state.go('^.edit', {id: id});
-        }
+        };
         $scope.add = function()
         {
             $scope.data.showDelete = false;
             $state.go('^.add');
-        }
+        };
         $scope.delete = function(id)
         {
             $scope.data.showDelete = false;
@@ -53,6 +53,6 @@ angular.module('Receipter')
                     });
                 }
             });
-        }
+        };
 
     });

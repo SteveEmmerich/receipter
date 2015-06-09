@@ -6,17 +6,17 @@
  * @description
  * # CategoryService
  * Opens new and edit popup boxes.
- * 
+ *
  */
 angular.module('Receipter')
-	.factory('categoryService', function($rootScope, $ionicPopup, $log, $filter, $timeout, CATEGORIES, pouchCollection) 
-  	{
-  	    var db = pouchCollection('categories');
-  	    var scope = $rootScope.$new();
-  	    scope.submit = function(done)
-  	    {
-  	        db.$add(scope.newCat);
-  	    };
+	.factory('categoryService', function($rootScope, $ionicPopup, $log, $filter, $timeout, CATEGORIES, pouchCollection)
+	{
+        var db = pouchCollection('categories');
+        var scope = $rootScope.$new();
+        scope.submit = function(done)
+        {
+            db.$add(scope.newCat, done);
+        };
 
         return {
             add: function(cat, cb)
@@ -34,7 +34,7 @@ angular.module('Receipter')
                         var saved = $ionicPopup.show(
                         {
                             title: 'Category Saved' //<-here
-                        })
+                        });
                         $timeout(function()
                         {
                             saved.close();
@@ -42,7 +42,6 @@ angular.module('Receipter')
                         }, 3);
                     }
                 });
-
             },
             edit: function(cat, cb)
             {
@@ -59,7 +58,7 @@ angular.module('Receipter')
                         var saved = $ionicPopup.show(
                         {
                             title: 'Category Saved' //<-here
-                        })
+                        });
                         $timeout(function()
                         {
                             saved.close();
@@ -70,12 +69,14 @@ angular.module('Receipter')
             },
             remove: function(cat, cb)
             {
-                $ionicPopup.confirm({
+                $ionicPopup.confirm(
+                {
 	                title: 'Remove',
 	                template: 'Are you sure you want to remove this Category?\nNote: No receipts will be removed only the category.'
-	                })				          
-	                .then(function(res)
-	                { 
+	            })
+	            .then(
+                    function(res)
+                    {
 	                    if (res)
                         {
                             $log.debug('clicked yes');
@@ -91,12 +92,12 @@ angular.module('Receipter')
                                 cb();
                             }, 3000);
                         }
-		            });
+		            }
+                );
             },
             list: function()
             {
                 return db;
             }
-            
         };
     });

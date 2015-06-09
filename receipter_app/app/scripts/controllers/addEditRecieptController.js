@@ -32,7 +32,7 @@ angular.module('Receipter')
             $timeout(function()
                     {
                         $log.debug($stateParams);
-                        if (angular.isUndefined($stateParams.id) || $stateParams.id == "")
+                        if (angular.isUndefined($stateParams.id) || $stateParams.id === '')
                         {
                             $scope.receipt = {};
                             $scope.storeName = '';
@@ -44,7 +44,7 @@ angular.module('Receipter')
                             receiptService.saveTemp($scope.receipt);
                             $log.debug($scope.receipt.date);
                         }
-                        else if ( $stateParams.id == -1)
+                        else if ( $stateParams.id === -1)
                         {
                             $scope.receipt = receiptService.getTemp().receipt;
                             $scope.id = $scope.receipt._id;
@@ -62,7 +62,7 @@ angular.module('Receipter')
 
                             $log.debug('receipt Id: ', JSON.stringify($stateParams, null, 2));
                         }
-                    },0)
+                    },0);
         }
         $scope.onEditItem = function(item)
         {
@@ -96,7 +96,7 @@ angular.module('Receipter')
   		{
             $log.debug('Saving');
 
-            if ($scope.id == -1)
+            if ($scope.id === -1)
             {
                 $scope.receipt._id = undefined;
 //                $scope.receipt.category = $scope.receipt.category.name;

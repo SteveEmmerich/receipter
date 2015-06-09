@@ -7,11 +7,11 @@
  * # SettingsController
  */
 angular.module('Receipter')
-  .controller('SettingsController', function($scope, pouchCollection) 
-  {
-  	var receipts = pouchCollection('receipts');
-    // do something with $scope
-    $scope.settings = [
+    .controller('SettingsController', function($scope, pouchCollection)
+    {
+        var receipts = pouchCollection('receipts');
+        // do something with $scope
+        $scope.settings = [
     	{
     		checked: false,
     		text: 'Allow Push Notifications',
@@ -19,7 +19,6 @@ angular.module('Receipter')
     		{
     			//pushNotifications.$toggleSync();
     		}
-
     	},
     	{
     		checked: false,

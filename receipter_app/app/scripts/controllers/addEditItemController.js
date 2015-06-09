@@ -16,7 +16,7 @@ angular.module('Receipter')
         $scope.categories = categoryService.list(); //TODO: change these services to be a one stop shop fo r managing receipts and categories
         // TODO: add in stuff for temp receipt
         $scope.receipt = receiptService.getTemp().receipt;
-        if (angular.isDefined($stateParams.iid) && $stateParams.iid != -1) //If iid we are editing an item
+        if (angular.isDefined($stateParams.iid) && $stateParams.iid !== -1) //If iid we are editing an item
         {
                 $log.debug($scope.receipt);
                 $scope.item = $scope.receipt.items[$stateParams.iid];
@@ -27,40 +27,8 @@ angular.module('Receipter')
             $scope.item = blankItem;
            // $scope.receipt = receiptService.getTemp().receipt;
         }
-       /* $ionicModal
-            .fromTemplateUrl('templates/views/addEditItem.html',
+        $scope.saveItem = function()
         {
-          scope: $scope,
-          animation: 'slide-in-up'
-        }).then(function(modal)
-        {
-            $scope.modal = modal;
-        });
-        $scope.openModal = function()
-        {
-            $scope.modal.show();
-        };
-        $scope.closeModal = function()
-        {
-            $scope.modal.hide();
-        };
-        //Cleanup the modal when we're done with it!
-        $scope.$on('$destroy', function()
-        {
-            $scope.modal.remove();
-        });
-        // Execute action on hide modal
-        $scope.$on('modal.hidden', function()
-        {
-            // Execute action
-        });
-        // Execute action on remove modal
-        $scope.$on('modal.removed', function()
-        {
-            // Execute action
-        });*/
-  		$scope.saveItem = function()
-  		{
             $ionicPopup.confirm(
             {
                 title: 'Save Item?',
@@ -85,12 +53,10 @@ angular.module('Receipter')
                         {
                           title: 'Item Saved!',
                           template: ''
-                        }).then(function(res)
+                        }).then(function()
                         {
-
                             receiptService.saveTemp($scope.receipt, {});
                             $state.go('app.receipt.edit', {id: -1});
-
                         });
                     }, 0, true);
                 }

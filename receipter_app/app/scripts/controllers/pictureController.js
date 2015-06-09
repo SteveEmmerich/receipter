@@ -7,16 +7,13 @@
  * # PictureController
  */
 angular.module('Receipter')
-  .controller('PictureController', function($scope, pouchCollection) 
-  {
-
-  	$scope.receipts = pouchCollection('receipts');
-    // do something with $scope
-    $scope.save = function(pic)
+    .controller('PictureController', function($scope, pouchCollection)
     {
-    	$scope.receipts.$add(pic);
-    	console.log('added', pic.storeName, 'to collection');
-    	
-    };
-
-  });
+        $scope.receipts = pouchCollection('receipts');
+        // do something with $scope
+        $scope.save = function(pic)
+        {
+    	   $scope.receipts.$add(pic);
+    	   console.log('added', pic.storeName, 'to collection');
+        };
+    });

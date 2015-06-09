@@ -7,8 +7,8 @@
  * # MainController
  */
 angular.module('Receipter')
-  .controller('MainController', function($scope) {
-
-    // do something with $scope
-    $scope.name = 'Receipter';
-  });
+    .controller('MainController', function($scope)
+    {
+        // do something with $scope
+        $scope.name = 'Receipter';
+    });

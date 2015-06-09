@@ -24,11 +24,11 @@ angular.module('Receipter')
         $scope.edit = function(id)
         {
             $state.go('^.edit', {id: id});
-        }
+        };
         $scope.new = function()
         {
             $state.go('^.add');
-        }
+        };
         $scope.delete = function(id)
         {
             $ionicPopup.confirm(
@@ -55,6 +55,6 @@ angular.module('Receipter')
                     });
                 }
             });
-        }
+        };
 
     });

@@ -130,29 +130,32 @@ angular.module('pouchdb')
         live: true, 
         onChange: function(change) 
         {
-        if (!change.deleted) 
-        {
-          db.get(change.id).then(function (data)
-          {
-            if (indexes[change.id] === undefined) 
-            { // CREATE / READ
-              addChild(collection.length, new PouchDbItem(data, collection.length)); // Add to end
-              updateIndexes(0);
+            console.log('change', change);
+            if (!change.deleted)
+            {
+              db.get(change.id).then(function (data)
+              {
+                if (indexes[change.id] === undefined)
+                { // CREATE / READ
+                  addChild(collection.length, new PouchDbItem(data, collection.length)); // Add to end
+                  updateIndexes(0);
+                }
+                else
+                { // UPDATE
+                  var index = indexes[change.id];
+                  var item = new PouchDbItem(data, index);
+                  updateChild(index, item);
+                }
+              });
             } 
             else 
-            { // UPDATE
-              var index = indexes[change.id];
-              var item = new PouchDbItem(data, index);
-              updateChild(index, item);
+            { //DELETE
+                console.log('deleted');
+              removeChild(change.id);
+              updateIndexes(indexes[change.id]);
             }
-          });
-        } 
-        else 
-        { //DELETE
-          removeChild(change.id);
-          updateIndexes(indexes[change.id]);
-        }
-      }});
+      }
+    });
 
       collection.$add = function(item) 
       {
@@ -165,15 +168,22 @@ angular.module('pouchdb')
           }
         );
       };
-      collection.$remove = function(itemOrId) 
+      collection.$remove = function(itemOrId, cb)
       {
-        var item = angular.isString(itemOrId) ? collection[itemOrId] : itemOrId;
-        db.remove(item);
+         // console.log('removing ' + itemOrId, collection, angular.isString(itemOrId) ? collection[itemOrId] : itemOrId);
+        var item = angular.isString(itemOrId) ? itemOrId : collection[itemOrId];
+        //console.log('item', item);
+        db.remove(item, function(res)
+        {
+            console.error('error on removal', res);
+            cb(res);
+        });
       };
 
       collection.$update = function(itemOrId) 
       {
         var item = angular.isString(itemOrId) ? collection[itemOrId] : itemOrId;
+        //var item = angular.isString(itemOrId) ? itemOrId : collection[itemOrId];
         var copy = {};
         angular.forEach(item, function(value, key) 
         {

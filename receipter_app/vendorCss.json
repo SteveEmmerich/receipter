@@ -3,7 +3,8 @@
     "bower_components/ionic/release/css/ionic.css",
     "bower_components/robotodraft/robotodraft/css",
     "bower_components/ionic-datepicker/dist/style.css",
-    "bower_components/ionic-material/dist/ionic.material.min.css",
+    "bower_components/ionic-material/dist/ionic.material.css",
+    "bower_components/waves/dist/waves.css",
     "bower_components/ionic-timepicker/dist/style.css",
     "bower_components/ionic-select/dist/style.css"
 ]

@@ -7,6 +7,7 @@
 @import "_variables";
 @import "_fonts";
 
+
 /**
  * LAYOUT
  */
@@ -29,6 +30,17 @@
 /**
  * Components
  */
+@import "../../bower_components/robotodraft/sass/robotodraft";
+@import "../../bower_components/robotodraft/sass/_variables";
+@import "../../bower_components/robotodraft/sass/_mixins";
+@import "../../bower_components/robotodraft/sass/_Black";
+@import "../../bower_components/robotodraft/sass/_Bold";
+@import "../../bower_components/robotodraft/sass/_Bolditalic";
+@import "../../bower_components/robotodraft/sass/_Italic";
+@import "../../bower_components/robotodraft/sass/_Light";
+@import "../../bower_components/robotodraft/sass/_Medium";
+@import "../../bower_components/robotodraft/sass/_Regular";
+@import "../../bower_components/robotodraft/sass/_Thin";
 //@import "../bower_components/robotodraft/robotodraft";
 /*@import "../bower_components/ionic-datepicker/dist/style";
 @import "../bower_components/ionic-timepicker/dist/style";

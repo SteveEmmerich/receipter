@@ -1,32 +1,38 @@
-<div class="list">
-    <label class="item item-input">
-        <input type="text" placeholder="Item Name" ng-model="item.name">
-    </label>
-    <label class="item item-input">
-        <input type="tel" placeholder="Item Price" ng-model="item.cost">
-        </br>
-    </label>
-    <label class="item item-input">
-        <input type="tel" placeholder="Item Quantity" ng-model="item.quantity">
-        </br>
-    </label>
-   <label class="item item-input">
-        <ion-select collection="$parent.categories" selected="item.category">
-             <button class="button button-outline button-small button-positive"> {{item.category}} </button>
-        </ion-select>
-    </label>
-     <label class="item item-input">
-        <p>{{getTotal() | currency}}</p>
-    </label>
-     <div>
-        <button class="button ion-paper-airplane" ng-click="saveItem()">
-            Save
-        </button>
-        <button class="button ion-close-round" ng-click="cancelItem()">
-            Cancel
-        </button>
-    </div>
-</div>
+<ion-view view-title="Item" ng-cont>
+<ion-content>
+    <ion-header-bar>
+    </ion-header-bar>
 
+    <div class="list">
+        <label class="item item-input">
+            <input type="text" placeholder="Item Name" ng-model="item.name">
+        </label>
+        <label class="item item-input">
+            <input type="tel" placeholder="Item Price" ng-model="item.cost">
+            </br>
+        </label>
+        <label class="item item-input">
+            <input type="tel" placeholder="Item Quantity" ng-model="item.quantity">
+            </br>
+        </label>
+       <label class="item item-input">
+            <ion-select collection="$parent.categories" selected="item.category", name="name">
+                 <button class="button button-outline button-small button-positive"> {{item.category.name}} </button>
+            </ion-select>
+        </label>
+         <label class="item item-input">
+            <p>{{getTotal() | currency}}</p>
+        </label>
+         <div>
+            <button class="button ion-paper-airplane" ng-click="saveItem()">
+                Save
+            </button>
+            <button class="button ion-close-round" ng-click="cancelItem()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</ion-content>
+</ion-view>
 
 

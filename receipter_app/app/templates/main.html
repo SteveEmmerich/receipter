@@ -1,7 +1,20 @@
 <ion-side-menus>
     <!-- Center content -->
-    <ion-side-menu-content>
 
+    <ion-side-menu-content>
+        <!--<ion-header-bar align-title="center" class="bar-positive">
+            <button
+                class="button button-icon icon ion-navicon"
+                menu-toggle="left">
+            </button>
+            <h1 class="title">receipter</h1>
+        </ion-header-bar>-->
+        <ion-nav-bar class="bar-positive">
+            <ion-nav-buttons side="left">
+              <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+              </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
         <ion-nav-view name="viewContent">
 
         </ion-nav-view>
@@ -24,9 +37,9 @@
                     <i class="icon ion-settings"></i>
                     Settings
                 </a>
-                <a menu-close class="item item-icon-left" ui-sref-active="active" ui-sref="app.receipt">
+                <a menu-close class="item item-icon-left" ui-sref-active="active" ui-sref="app.receipt.list">
                     <i class="icon ion-edit"></i>
-                    New Receipt
+                    Receipts
                 </a>
                 <a menu-close class="item item-icon-left" ui-sref-active="active" ui-sref="app.category.list">
                     <i class="icon ion-edit"></i>

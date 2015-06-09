@@ -18,5 +18,6 @@
     "bower_components/ionic-timepicker/dist/templates.js",
     "bower_components/ionic-select/src/ionic-select.js",
     "bower_components/ionic-select/dist/templates.js",
-    "bower_components/ionic-material/dist/ionic.material.min.js"
+    "bower_components/ionic-material/dist/ionic.material.min.js",
+    "bower_componente/waves/dist/waves.js"
 ]

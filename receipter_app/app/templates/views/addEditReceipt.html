@@ -1,11 +1,11 @@
-<ion-view>
+<!--<ion-view>-->
 
-    <ion-header-bar align-title="center" class="bar-positive">
+    <!--<ion-header-bar align-title="center" class="bar-positive">
 
 
     <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
         <h1 class="title">Enter Receipt</h1>
-    </ion-header-bar>
+    </ion-header-bar>-->
 
     <ion-content>
         <div class="list">
@@ -15,14 +15,14 @@
             </label>
              <label class="item item-input">
               <!--  <input type="date" placeholder="Date" ng-model="$parent.date"> -->
-                <ionic-datepicker idate="$parent.receipt.date" > <!-- TODO: Datepicker -->
+                <ionic-datepicker idate="$parent.receipt.date" >
                     <button class="button button-outline button-small button-positive"> {{ receipt.date | date:'dd - MMMM - yyyy' }} </button>
                 </ionic-datepicker>
             </label>
            <label class="item item-input">
 
                 <ion-select collection="$parent.categories" selected="$parent.receipt.category" title="Categories">
-                     <button class="button button-outline button-small button-positive"> {{$parent.receipt.category}} </button>
+                     <button class="button button-outline button-small button-positive"> {{$parent.receipt.category.name}} </button>
                 </ion-select>
             </label>
             <div class="item item" ng-show="receipt.items.length">
@@ -34,7 +34,7 @@
                         <ion-item ng-repeat="item in receipt.items track by item._id">
                             <h2>{{item.name}}</h2>
                             <p>{{(item.total | currency)}}</p>
-                            <p>{{item.category}}</p>
+                            <p>{{item.category.name}}</p>
 
                             <ion-option-button
                                 class="ion-edit"
@@ -65,4 +65,4 @@
         </div>
     </ion-content>
 
-</ion-view>
+<!--</ion-view>-->

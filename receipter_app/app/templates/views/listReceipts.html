@@ -1,0 +1,42 @@
+
+<ion-content>
+
+    <div class="loader" ng-if="!receipts">
+        <ion-spinner></ion-spinner>
+    </div>
+
+        <ion-list
+
+          show-delete="data.showDelete"
+          show-reorder="data.showReorder"
+          can-swipe="data.canSwipe">
+
+          <ion-item
+            ng-repeat="item in receipts track by item._id"
+            class="item-thumbnail-left card">
+
+            <img ng-show="{{item.img}}" ng-src="{{item.img}}" alt="No Image">
+            <h2>{{item.storeName}}</h2>
+            <p>{{item.date | date:'dd - MMMM - yyyy'}} </p>
+            <p>{{(item.total | currency)}}</p>
+            <p>{{item.category.name}}</p>
+
+            <ion-option-button
+                class="ion-edit"
+                ng-click="edit(item._id)">
+            </ion-option-button>
+            <ion-option-button
+                class="ion-minus-circled"
+                ng-click="delete(item.$index)">
+            </ion-option-button>
+            <ion-reorder-button
+                class="ion-navicon"
+                on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+            </ion-reorder-button>
+
+          </ion-item>
+
+            <ion-infinite-scroll on-infinite="retrieveNext()"></ion-infinite-scroll>
+        </ion-list>
+
+</ion-content>

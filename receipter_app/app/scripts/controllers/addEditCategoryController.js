@@ -9,7 +9,7 @@
 angular.module('Receipter')
     .controller('addEditCategoryController', function($log, $scope, $timeout, $stateParams, $ionicPopup, $state, categoryService)
     {
-        var blankCategory = { icon: 'None', name: 'blank' };
+        var blankCategory = { icon: 'None', name: '' };
         var iconsList   = [
             "ion-ionic", "ion-arrow-up-a", "ion-arrow-right-a", "ion-arrow-down-a", "ion-arrow-left-a",
             "ion-arrow-up-b", "ion-arrow-right-b", "ion-arrow-down-b", "ion-arrow-left-b", "ion-arrow-up-c",
@@ -32,47 +32,26 @@ angular.module('Receipter')
                     $scope.category = item;
                 });
         }
+        else
+        {
+            $scope.category = blankCategory;
+        }
         $scope.save = function()
         {
-            $ionicPopup.confirm(
+            if ($stateParams.id)
             {
-                title: 'Save Category?',
-                template: ''
-            }).then(function(res)
-            {
-                if (res)
+                categoryService.edit($scope.category, function()
                 {
-                    if ($stateParams.id)
-                    {
-                        categoryService.edit($scope.category, function()
-                        {
-                            $ionicPopup.alert(
-                            {
-                              title: 'Category Saved!',
-                              template: ''
-                            }).then(function(res)
-                            {
-                                $state.go('^.categories.list');
-                            });
-                        });
-                    }
-                    else
-                    {
-                        categoryService.add($scope.category, function()
-                        {
-                            $ionicPopup.alert(
-                            {
-                              title: 'Category Saved!',
-                              template: ''
-                            }).then(function(res)
-                            {
-                                $state.go('^.categories.list');
-                            });
-                        });
-                    }
-
-                }
-            });
+                    $state.go('^.list');
+                });
+            }
+            else
+            {
+                  categoryService.add($scope.category, function()
+                  {
+                      $state.go('^.list');
+                  });
+            }
         }
 
         $scope.cancel = function()
@@ -85,7 +64,7 @@ angular.module('Receipter')
             {
                 if (res)
                 {
-                    $state.go('^.categories.list');
+                    $state.go('^.list');
                 }
             });
         };

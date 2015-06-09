@@ -72,26 +72,31 @@ angular.module('Receipter')
 
 
             },
-            remove: function(receipt, cb)
+            remove: function(receiptOrId, cb)
             {
                 $ionicPopup.confirm({
 	                title: 'Remove',
-	                template: 'Are you sure you want to remove this Category?\nNote: No receipts will be removed only the category.'
+	                template: 'Are you sure you want to remove this Receipt?'
 	                })
 	                .then(function(res)
 	                {
 	                    if (res)
                         {
-		                    db.$remove(receipt);
-                            var saved = $ionicPopup.show(
+		                    db.$remove(receiptOrId, function(err)
                             {
-                                title: 'Receipt Deleted' //<-here
-                            })
-                            $timeout(function()
-                            {
-                                saved.close();
-                                cb();
-                            }, 3);
+                                if (err)
+                                    $log.error("error saving", err);
+
+                                var saved = $ionicPopup.show(
+                                {
+                                    title: 'Receipt Deleted' //<-here
+                                })
+                                $timeout(function()
+                                {
+                                    saved.close();
+                                    cb();
+                                }, 3);
+                            });
                         }
 		            });
             },

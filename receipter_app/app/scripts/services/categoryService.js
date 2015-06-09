@@ -19,83 +19,56 @@ angular.module('Receipter')
   	    };
 
         return {
-            add: function(cat)
+            add: function(cat, cb)
             {
-                scope.title = 'Add Category';
-                $ionicPopup.show(
+                $ionicPopup.confirm(
                 {
-	      			title: scope.title, 
-				    templateUrl: 'templates/views/addEditCategory.html', 
-      				scope: scope,
-      				buttons: [
-      				{
-				        text: 'Cancel',
-				        type: 'button-default',
-				        onTap: function(e) 
-				        {
-				          // e.preventDefault() will stop the popup from closing when tapped.
-				          //e.preventDefault();
-				        }
-				    }, 
-				    {
-				        text: 'Save',
-				        type: 'button-positive ion-plane',
-				        onTap: function(e)
-				        {
-					        $ionicPopup.confirm({
-				                    title: 'Save?',
-				                    template: 'Are you sure?'
-				                })				          
-				                .then(function(res)
-				                { 
-				                    if (res)
-                                    {
-					                    db.$add(cat);
-                                    }
-					            });
-					    }
-				    }]
-	      		});
+                    title: 'Save?',
+                    template: 'Are you sure?'
+                })
+                .then(function(res)
+                {
+                    if (res)
+                    {
+                        db.$add(cat);
+                        var saved = $ionicPopup.show(
+                        {
+                            title: 'Category Saved' //<-here
+                        })
+                        $timeout(function()
+                        {
+                            saved.close();
+                            cb();
+                        }, 3);
+                    }
+                });
+
             },
-            edit: function(cat)
+            edit: function(cat, cb)
             {
-                scope.title = 'Edit Category';
-                $ionicPopup.show(
+                $ionicPopup.confirm(
                 {
-	      			title: scope.title, 
-				    templateUrl: 'templates/views/addEditCategory.html', 
-      				scope: scope,
-      				buttons: [
-      				{
-				        text: 'Cancel',
-				        type: 'button-default',
-				        onTap: function(e) 
-				        {
-				          // e.preventDefault() will stop the popup from closing when tapped.
-				          //e.preventDefault();
-				        }
-				    }, 
-				    {
-				        text: 'Save',
-				        type: 'button-positive ion-plane',
-				        onTap: function(e)
-				        {
-				            $ionicPopup.confirm({
-                                    title: 'Save?',
-				                    template: 'Are you sure?'
-				                })				          
-				                .then(function(res)
-				                { 
-				                    if (res)
-                                    {
-					                    db.$update(cat);
-                                    }
-					            });
-					    }
-				    }]
-	      		});
+                    title: 'Save?',
+                    template: 'Are you sure?'
+                })
+                .then(function(res)
+                {
+                    if (res)
+                    {
+                        db.$update(cat);
+                        var saved = $ionicPopup.show(
+                        {
+                            title: 'Category Saved' //<-here
+                        })
+                        $timeout(function()
+                        {
+                            saved.close();
+                            cb();
+                        }, 3);
+                    }
+                });
             },
-            remove: function(cat)
+            remove: function(cat, cb)
             {
                 $ionicPopup.confirm({
 	                title: 'Remove',
@@ -105,7 +78,18 @@ angular.module('Receipter')
 	                { 
 	                    if (res)
                         {
+                            $log.debug('clicked yes');
 		                    db.$remove(cat);
+                            var saved = $ionicPopup.show(
+                            {
+                                title: 'Category Removed' //<-here
+                            });
+                            $timeout(function()
+                            {
+                                $log.debug('save closed');
+                                saved.close();
+                                cb();
+                            }, 3000);
                         }
 		            });
             },

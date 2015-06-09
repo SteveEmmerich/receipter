@@ -89,7 +89,7 @@ angular.module('Receipter')
                         {
 
                             receiptService.saveTemp($scope.receipt, {});
-                            $state.go('^.receipt', {id: $scope.receipt._id});
+                            $state.go('app.receipt.edit', {id: -1});
 
                         });
                     }, 0, true);

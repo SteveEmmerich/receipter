@@ -40,7 +40,7 @@ angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ion
             templateUrl: 'templates/main.html',
             controller: 'MainController'
         })
-        .state('app.home',
+       /* .state('app.home',
         {
             url: '/home',
             cache: true,
@@ -52,7 +52,7 @@ angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ion
                 controller: 'HomeController'
               }
             }
-        })
+        })*/
         .state('app.settings',
         {
             url: '/settings',
@@ -68,11 +68,58 @@ angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ion
         })
         .state('app.receipt',
         {
-            url: '/add/receipt/:id',
-            cache: true,
+            url: '/receipt',
+            abstract: true,
             views:
             {
               'viewContent':
+              {
+                templateUrl: 'templates/views/receipt.html',
+               // controller: 'addEditReceiptController'
+              }
+            }
+        })
+        .state('app.receipt.list',
+        {
+            url: '/list',
+            cache: false,
+            views:
+            {
+                'receipts':
+                {
+                    templateUrl: 'templates/views/listReceipts.html',
+                    controller: 'listReceiptController'
+                },
+                'fabContent':
+                {
+                    template: '<button id="fab-receipt" class="button button-fab button-fab-bottom-right button-energized-900" ui-sref="app.receipt.add"><i class="icon ion-plus"></i></button>'
+                }
+            }
+        })
+        .state('app.receipt.add',
+        {
+            url: '/add',
+            cache: true,
+            views:
+            {
+                'receipts':
+                {
+                    templateUrl: 'templates/views/addEditReceipt.html',
+                    controller: 'addEditReceiptController'
+                },
+                /*'fabContent':
+                {
+                    template: '<button id="fab-receipt" class="button button-fab button-fab-bottom-right button-energized-900" ui-sref="app.item"><i class="icon ion-plus"></i></button>'
+                }*/
+            }
+        })
+        .state('app.receipt.edit',
+        {
+            url: '/edit/:id',
+            cache: true,
+            views:
+            {
+              'receipts':
               {
                 templateUrl: 'templates/views/addEditReceipt.html',
                 controller: 'addEditReceiptController'
@@ -103,6 +150,10 @@ angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ion
                 {
                     templateUrl: 'templates/views/listCategories.html',
                     controller: 'listCategoriesController'
+                },
+                'fabContent':
+                {
+                    template: '<button id="fab-receipt" class="button button-fab button-fab-bottom-right button-energized-900" ui-sref="app.category.add"><i class="icon ion-plus"></i></button>'
                 }
             }
         })
@@ -144,7 +195,7 @@ angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ion
       //})
       .state('app.item',
       {
-        url: '/add/item/:id/:iid',
+        url: '/item/add/:id/:iid',
         cache: true,
         views:
         {
@@ -171,7 +222,7 @@ angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ion
 
 
     // redirects to default route for undefined routes
-    $urlRouterProvider.otherwise('/app/home');
+    $urlRouterProvider.otherwise('/app/receipt/list');
   });
 
 

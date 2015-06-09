@@ -17,50 +17,62 @@ angular.module('Receipter')
             {
                 if(fromState.name === 'app.item')
                 {
-                    $scope.receipt = receiptService.getTemp().receipt;
+                   $timeout(function()
+                   {
+                       $scope.receipt = receiptService.getTemp().receipt;
+                   },0);
                     $log.debug('chaged from item', $scope.receipt);
                 }
+
+
                 $log.debug('state changed', toState, fromState);
             });
-        $log.debug($stateParams);
-  		if (angular.isUndefined($stateParams.id) || $stateParams.id == "")
+        if (!$scope.receipt)
         {
-            $scope.receipt = {};
-            $scope.storeName = '';
-            $scope.receipt.date = new Date();
-            $scope.id = -1;
-            $scope.receipt.items = [];
-            $scope.receipt.category = 'None';
-            $scope.receipt._id = -1;
-            receiptService.saveTemp($scope.receipt);
-            $log.debug($scope.receipt.date);
-        }
-        else if ( $stateParams.id == -1)
-        {
-            $scope.receipt = receiptService.getTemp().receipt;
-            $scope.id = $scope.receipt._id;
-        }
-        else
-        {
-            receiptService.loadReceipt($stateParams.id,
-                function(err, item)
-                {
-                    $scope.receipt = item;
-                });
+            $timeout(function()
+                    {
+                        $log.debug($stateParams);
+                        if (angular.isUndefined($stateParams.id) || $stateParams.id == "")
+                        {
+                            $scope.receipt = {};
+                            $scope.storeName = '';
+                            $scope.receipt.date = new Date();
+                            $scope.id = -1;
+                            $scope.receipt.items = [];
+                            $scope.receipt.category = 'None';
+                            $scope.receipt._id = -1;
+                            receiptService.saveTemp($scope.receipt);
+                            $log.debug($scope.receipt.date);
+                        }
+                        else if ( $stateParams.id == -1)
+                        {
+                            $scope.receipt = receiptService.getTemp().receipt;
+                            $scope.id = $scope.receipt._id;
+                        }
+                        else
+                        {
+                            receiptService.loadReceipt($stateParams.id,
+                                function(err, item)
+                                {
+                                    $scope.receipt = item;
+                                    $log.debug('item: ', $scope.receipt);
+                                });
 
-            $scope.id = $stateParams.id;
+                            $scope.id = $stateParams.id;
 
-            $log.debug('receipt Id: ' + JSON.stringify($scope.id));
+                            $log.debug('receipt Id: ', JSON.stringify($stateParams, null, 2));
+                        }
+                    },0)
         }
         $scope.onEditItem = function(item)
         {
             receiptService.saveTemp($scope.receipt, item);
-            $state.go('^.item', {id: $scope.receipt._id, iid: item._id});
+            $state.go('app.item', {id: $scope.receipt._id, iid: item._id});
         };
         $scope.addItem = function()
   		{
   			receiptService.saveTemp($scope.receipt, {});
-            $state.go('^.item', {id: $scope.receipt._id, iid: -1});
+            $state.go('app.item', {id: $scope.receipt._id, iid: -1});
   		};
   		$scope.removeItem = function(item)
   		{
@@ -87,10 +99,11 @@ angular.module('Receipter')
             if ($scope.id == -1)
             {
                 $scope.receipt._id = undefined;
+//                $scope.receipt.category = $scope.receipt.category.name;
                 receiptService.add($scope.receipt, function()
                 {
                     receiptService.unloadReceipt();
-                    $state.go('^.home');
+                    $state.go('^.list');
                 });
             }
             else
@@ -98,7 +111,7 @@ angular.module('Receipter')
                 receiptService.update($scope.receipt, function()
                 {
                     receiptService.unloadReceipt();
-                    $state.go('^.home');
+                    $state.go('^.list');
                 });
             }
 
@@ -113,7 +126,7 @@ angular.module('Receipter')
             {
                 if (res)
                 {
-                    $state.go('^.home');
+                    $state.go('^.list');
                 }
             });
         };

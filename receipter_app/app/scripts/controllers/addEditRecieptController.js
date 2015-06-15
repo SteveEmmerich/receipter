@@ -44,7 +44,7 @@ angular.module('Receipter')
                             receiptService.saveTemp($scope.receipt);
                             $log.debug($scope.receipt.date);
                         }
-                        else if ( $stateParams.id === -1)
+                        else if ( $stateParams.id == -1)
                         {
                             $scope.receipt = receiptService.getTemp().receipt;
                             $scope.id = $scope.receipt._id;
@@ -96,7 +96,7 @@ angular.module('Receipter')
   		{
             $log.debug('Saving');
 
-            if ($scope.id === -1)
+            if ($scope.id == -1)
             {
                 $scope.receipt._id = undefined;
 //                $scope.receipt.category = $scope.receipt.category.name;

@@ -15,7 +15,20 @@ var streamqueue = require('streamqueue');
 var runSequence = require('run-sequence');
 var merge = require('merge-stream');
 var ripple = require('ripple-emulator');
+var plumber = require('gulp-plumber');
+var gutil = require('gulp-util');
 
+var gulp_src = gulp.src;
+gulp.src = function() {
+  return gulp_src.apply(gulp, arguments)
+    .pipe(plumber(function(error) {
+      // Output an error message
+      gutil.log(gutil.colors.red('Error (' + error.plugin + '): ' + error.message));
+      // emit the end event, to properly end the task
+      this.emit('end');
+    })
+  );
+};
 /**
  * Parse arguments
  */
@@ -49,6 +62,10 @@ if (run === true) {
 // global error handler
 var errorHandler = function(error) {
   if (build || prePush) {
+      beep(2, 170);
+    plugins.util.log(error);
+    gutil.log(gutil.colors.red('Error (' + error.plugin + '): ' + error.message));
+
     throw error;
   } else {
     beep(2, 170);
@@ -70,7 +87,7 @@ gulp.task('styles', function() {
   var sassStream = plugins.rubySass('app/styles/main.scss', options)
       .pipe(plugins.autoprefixer('last 1 Chrome version', 'last 3 iOS versions', 'last 3 Android versions'))
   var vendor = require('./vendorCss.json');
- // console.log('test',vendor);
+  console.log('test',vendor);
   var cssStream = gulp
     .src(vendor);
     //.src('bower_components/ionic/release/css/ionic.min.css');
@@ -113,6 +130,12 @@ gulp.task('scripts', function() {
     .pipe(plugins.if(!build, plugins.changed(dest)));
 
   return streamqueue({ objectMode: true }, scriptStream, templateStream)
+     .pipe(plumber(function(error) {
+      // Output an error message
+      gutil.log(gutil.colors.red('Error (' + error.plugin + '): ' + error.message));
+      // emit the end event, to properly end the task
+      this.emit('end');
+    }))
     .pipe(plugins.if(build, plugins.ngAnnotate()))
     .pipe(plugins.if(stripDebug, plugins.stripDebug()))
     .pipe(plugins.if(build, plugins.concat('app.js')))

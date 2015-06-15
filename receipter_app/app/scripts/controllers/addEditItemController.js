@@ -11,19 +11,21 @@ angular.module('Receipter')
     {
 
         var blankItem = {name: '', cost: '', quantity: 1, category: 'None', total: 0};
+        $scope.item = blankItem;
+        $log.debug('In the item controller');
        // $scope.receipts = receiptService.list();
 
         $scope.categories = categoryService.list(); //TODO: change these services to be a one stop shop fo r managing receipts and categories
         // TODO: add in stuff for temp receipt
         $scope.receipt = receiptService.getTemp().receipt;
-        if (angular.isDefined($stateParams.iid) && $stateParams.iid !== -1) //If iid we are editing an item
+        if (angular.isDefined($stateParams.iid) && $stateParams.iid != -1) //If iid we are editing an item
         {
-                $log.debug($scope.receipt);
+                $log.debug('receipt: ', $scope.receipt, 'Id: ', $stateParams.id, 'Iid: ', typeof($stateParams.iid));
                 $scope.item = $scope.receipt.items[$stateParams.iid];
         }
-
         else // Otherwise we are adding an item
         {
+            $log.debug('Adding New Item');
             $scope.item = blankItem;
            // $scope.receipt = receiptService.getTemp().receipt;
         }
@@ -87,7 +89,7 @@ angular.module('Receipter')
 
   			$timeout(function()
   			{
-  		         $scope.item.total = ($scope.item.cost * $scope.item.quantity);
+                $scope.item.total = ($scope.item.cost * $scope.item.quantity);
   			});
             return $scope.item.total;
   		};

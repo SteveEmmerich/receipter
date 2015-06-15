@@ -23,8 +23,18 @@ angular.module('Receipter', ['ionic', 'ionic-material', 'ionic-datepicker', 'ion
         // add possible global event handlers here
     })
 
-    .config(function($httpProvider, $stateProvider, $urlRouterProvider)
+    .config(function($httpProvider, $stateProvider, $urlRouterProvider)//, $ionicAppProvider)
     {
+        // Identify app
+       /* $ionicAppProvider.identify(
+        {
+            // The App ID (from apps.ionic.io) for the server
+            app_id: '70de5c51',
+            // The public API key all services will use for this app
+            api_key: 'c1c754391b151df15b44abf1eeb0f454a28edb3a6de56f99',
+            // The GCM project ID (project number) from your Google Developer Console (un-comment if used)
+            // gcm_id: 'YOUR_GCM_ID'
+        });*/
         // register $http interceptors, if any. e.g.
         // $httpProvider.interceptors.push('interceptor-name');
         // Application routing

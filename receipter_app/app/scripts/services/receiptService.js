@@ -116,20 +116,23 @@ angular.module('Receipter')
                 var tItm = angular.copy(scope.tempItem);
                // scope.tempReceipt = undefined;
             //    scope.tempItem = undefined;
+                $log.debug('Returning Receipt: ', tRep);
                 return {receipt: tRep, item: tItm};
             },
-            loadReceipt(id, cb)
+            loadReceipt: function(id, cb)
             {
                 db.$db.get(id).then(
                     function(item)
                     {
                         scope.tempReceipt = item;
+                        $log.debug('Loaded Receipt: ', scope.tempReceipt);
                         cb(null, item);
                     });
             },
-            unloadReceipt()
+            unloadReceipt: function()
             {
                 scope.tempReceipt = undefined;
+                $log.debug('Unloaded Receipt: ', scope.tempReceipt);
             }
 
         };

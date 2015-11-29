@@ -1,0 +1,59 @@
+<md-dialog aria-label="Item Form">
+    <form name="itemForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Item (Add)</h2>
+                <span flex></span>
+                <md-button aria-label="Item Close" class="md-icon-button" ng-click="hide()">
+                    <!--<md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>-->
+                   <md-icon>
+                        <ng-md-icon icon="clear" style="fill: indigo"></ng-md-icon>
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-input-container>
+                <label>Name:</label>
+                <input md-maxlength="30" required name="name" ng-model="item.name">
+                <div ng-messages="itemForm.name.$error">
+                    <div ng-message="required">Item Name required.</div>
+                    <div ng-message="md-maxlength">Item Name must be less than 30 characters.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Category:</label>
+                <input required name="category" ng-model="item.category">
+                <div ng-messages="itemForm.category.$error">
+                    <div ng-message="required">Category required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Quantity:</label>
+                <input required name="quantity" ng-model="item.quantity" ng-change="updateCostTotalQuan(item.quantity)">
+                <div ng-messages="itemForm.quantity.$error">
+                    <div ng-message="required">Quantity required.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Cost:</label>
+                <input required name="cost" ng-model="item.cost" ng-change="updateCostTotalCos(item.cost)">
+                <div ng-messages="itemForm.cost.$error">
+                    <div ng-message="required">Cost required.</div>
+                </div>
+            </md-input-container>
+            <div>
+                <h3>Total Cost: {{item.totalCost | currency}}</h3>
+            </div>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <span flex></span>
+            <md-button aria-label="Item ok" ng-click="ok(true, item)" class="md-primary">
+                Save
+            </md-button>
+            <md-button aria-label="Item cancel" ng-click="cancel()" class="md-primary">
+                Cancel
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

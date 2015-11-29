@@ -1,0 +1,67 @@
+<md-content flex layout-padding>
+    <md-subheader ng-show="vm.loaded" class="md-secondary">
+        {{vm.title}}
+        <span class="flex"></span>
+        <section layout="row" layout-sm="column" layout-align="end end" ng-show="vm.id">
+            <md-button aria-label="Delete" class="md-raised md-warn pull:right" ng-click="vm.deleteReceipt($event)">
+                Delete
+            </md-button>
+        </section>
+    </md-subheader>
+    <div ng-hide="vm.loaded" class="fx-fade-down fx-easing-bounce fx-speed-800" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+    <div ng-show="vm.loaded" class="fx-fade-left fx-easing-bounce fx-speed-800">
+        <form name="ReceiptForm">
+            <md-input-container>
+                <label>Store:</label>
+                <input md-maxlength="30" ng-required="true" name="store" ng-model="vm.receipt.store">
+                <div ng-messages="ReceiptForm.store.$error">
+                    <div ng-message="required">Store Name required.</div>
+                    <div ng-message="md-maxlength">Store Name must be less than 30 characters.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Category:</label>
+                <input md-maxlength="30" ng-required="true" name="category" ng-model="vm.receipt.category">
+                <div ng-messages="ReceiptForm.category.$error">
+                    <div ng-message="required">Category Name required.</div>
+                    <div ng-message="md-maxlength">Category Name must be less than 30 characters.</div>
+                </div>
+            </md-input-container>
+        </form>
+        <div>
+            <div>
+                <label>Items:</label>
+                <md-list>
+                    <md-list-item class="md-3-line fx-fade-down fx-easing-bounce fx-speed-800" ng-repeat="item in vm.receipt.items" ng-click="vm.editItem($event, item)">
+                        
+                        <div class="md-list-item-text">
+                            <h3>Name: {{ item.name }}</h3>
+                            <h4>Category: {{ item.category }}</h4>
+                            <p>Quantity: {{ item.quantity }}
+                            Cost: {{ item.cost | currency}}</p>
+                            <h4> Total Cost: {{ item.totalCost | currency}}</h4>
+                        </div>
+                        <md-divider md-inset ng-if="!$last"></md-divider>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <div>
+                <label>Total: {{vm.receipt.total | currency}}</label>
+            </div>
+            <div>
+                <md-button class="md-raised md-primary" ng-click="vm.save($event)">Save</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.cancel($event)">Cancel</md-button>
+            </div>
+        </div>
+        <div  layout="row" layout-align="end end" >
+            <md-button aria-label="Item" class="md-fab md-warn" ng-click="vm.addItem($event)">
+                
+                    <ng-md-icon icon="add" style="fill: white"></ng-md-icon>
+                
+            </md-button>
+        </div>
+        <!-- Search Bar -->
+
+    </div>

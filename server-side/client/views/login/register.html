@@ -1,0 +1,55 @@
+<div>
+    <section layout="row" layout-sm="column" layout-align="center center">
+        <md-toolbar class="md-primary">
+            <div class="md-toolbar-tools">
+                <h2 class="md-flex">Please Sign In</h2>
+            </div>
+        </md-toolbar>
+    </section>
+    <md-content layout-padding class="autoScroll">
+        <section layout="column" layout-sm="column" layout-align="center center">
+            <form name="register">
+                <md-input-container class="md-icon-float" >
+                  <!-- Use floating label instead of placeholder -->
+                    <label>Email</label>
+                    <md-icon>
+                        <ng-md-icon icon="person" style="fill: indigo"></ng-md-icon>
+                    </md-icon>
+                    <input ng-model="vm.user.email" type="email">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                  <!-- Use floating label instead of placeholder -->
+                    <label>Password</label>
+                     <md-icon>
+                        <ng-md-icon icon="person" style="fill: indigo"></ng-md-icon>
+                    </md-icon>
+                    <input required ng-model="vm.user.password" name="password"  type="password">
+                    <ng-messages for="register.password.$error">
+                        <ng-message when="'required'">This is required.</ng-message>
+                    </ng-messages>
+                    </md-input-container>
+                <md-input-container class="md-icon-float" >
+                  <!-- Use floating label instead of placeholder -->
+                    <label>Confirm Password</label>
+                   
+                    <input name="passConfirm"
+                            type="password"
+                            ng-model="value"
+                            required
+                            ui-validate=" 'value==vm.user.password' "
+                            ui-validate-watch=" 'vm.user.password' ">
+                    <ng-messages for="registerForm.passConfirm.$error">
+                        <ng-message when="required">This is required.</ng-message>
+                        <ng-message when="validator"> Passwords do not match!</ng-message>
+                    </ng-messages>
+
+                </md-input-container>
+            </form>
+        </section>
+        <section layout="row" layout-sm="column" layout-align="center center">
+            <md-button class="md-raised md-primary" ng-click="vm.register()">Sign Up</md-button>
+            <md-button ui-sref="login" class="md-raised md-primary">Sign In</md-button>
+        </section>
+    </md-content>
+
+</div>

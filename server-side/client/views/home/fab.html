@@ -1,0 +1,26 @@
+ <div  layout="row" layout-align="end end" ng-show="!vm.loaded">
+    <md-fab-speed-dial md-open="fab.isOpen" md-direction="up" ng-class="md-fling">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-warn">
+                    <ng-md-icon icon="menu" style="fill: indigo"></ng-md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button aria-label="Form" class="md-fab md-raised md-mini" ui-sref="app.receipt">
+               
+                    <ng-md-icon icon="receipt" style="fill: indigo"></ng-md-icon>
+               
+            </md-button>
+            <md-button aria-label="Picture" class="md-fab md-raised md-mini" ui-sref="app.photo">
+                
+                    <ng-md-icon icon="photo_camera" style="fill: indigo"></ng-md-icon>
+                
+            </md-button>
+            <md-button aria-label="Export" class="md-fab md-raised md-mini" ui-sref="app.export">
+                
+                    <ng-md-icon icon="import_export" style="fill: indigo"></ng-md-icon>
+                
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>

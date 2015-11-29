@@ -1,0 +1,55 @@
+<md-content flex layout-padding>
+    <div>
+
+        <div layout="row" layout-sm="column" layout-align="space-around">
+             <h1>Receipts</h1>
+            <md-button class="md-icon-button md-primary" aria-label="list view" ng-click="vm.list = true; vm.grid = false">
+                
+                    <ng-md-icon icon="list" style="fill: indigo"></ng-md-icon>
+                
+            </md-button>
+            <md-button class="md-icon-button md-primary" aria-label="grid view" ng-click="vm.list = false; vm.grid = true">
+                
+                    <ng-md-icon icon="dashboard" style="fill: indigo"></ng-md-icon>
+                
+            </md-button>
+            <md-input-container class="md-icon-float">
+                
+                <ng-md-icon icon="search" style="fill: indigo"></ng-md-icon>
+               
+
+                <input aria-label="search" ng-model="vm.search" placeholder="Search">
+            </md-input-container>
+        </div>
+
+        <!-- Search Bar -->
+        <div ng-hide="vm.loaded" class="fx-fade-down fx-easing-bounce fx-speed-800" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <div ng-show="vm.loaded" class="fx-fade-down fx-easing-linear fx-speed-800">
+            <div sv-root ng-show="vm.grid">
+                <div sv-part="vm.receipts">
+                    <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px" >
+
+                        <md-grid-tile ng-repeat="receipt in vm.receipts | filter:vm.search track by $index" md-rowspan="1" md-colspan="1" md-colspan-sm="1" ng-class="primary" sv-element ng-click="vm.edit(receipt.$id)" class="fx-fade-left fx-easing-bounce fx-speed-800">
+                            <md-grid-tile-footer><h3>{{receipt.store}}</h3></md-grid-tile-footer>
+                        </md-grid-tile>
+
+                    </md-grid-list>
+                </div>
+            </div>
+            <div ng-show="vm.list" class="fx-fade-down fx-easing-bounce fx-speed-800">
+                <md-list>
+                    <md-list-item class="md-3-line" ng-repeat="receipt in vm.receipts | filter:vm.search track by $index" ng-click="vm.edit(receipt.$id)" class="fx-fade-left fx-easing-bounce fx-speed-800">
+                        <div class="md-list-item-text">
+                            <h3>{{receipt.store}}</h3>
+                            <h4>{{receipt.category}}</h4>
+                            <p>{{receipt.total}}</p>
+                        </div>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </div>
+        </div>
+    </div>
+</md-content>

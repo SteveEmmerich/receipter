@@ -1,0 +1,35 @@
+<div>
+    <section layout="row" layout-sm="column" layout-align="center center">
+        <md-toolbar class="md-primary">
+            <div class="md-toolbar-tools">
+                <h2 class="md-flex">Please Sign In</h2>
+            </div>
+        </md-toolbar>
+    </section>
+    <md-content layout-padding class="autoScroll">
+        <section layout="column" layout-sm="column" layout-align="center center">
+            <md-input-container class="md-icon-float" >
+              <!-- Use floating label instead of placeholder -->
+                <label>Email</label>
+                <md-icon>
+                    <ng-md-icon icon="person" style="fill: indigo"></ng-md-icon>
+                </md-icon>
+                <input ng-model="vm.user.email" type="text">
+            </md-input-container>
+            
+            <md-input-container class="md-icon-float" >
+              <!-- Use floating label instead of placeholder -->
+                <label>Password</label>
+                 <md-icon>
+                    <ng-md-icon icon="person" style="fill: indigo"></ng-md-icon>
+                </md-icon>
+                <input ng-model="vm.user.password" type="password">
+            </md-input-container>
+        </section>
+        <section layout="row" layout-sm="column" layout-align="center center">
+            <md-button class="md-raised md-primary" ng-click="vm.login()">Sign In</md-button>
+            <md-button ui-sref="register" class="md-raised md-primary">Sign Up</md-button>
+        </section>
+    </md-content>
+
+</div>

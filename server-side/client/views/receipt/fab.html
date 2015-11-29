@@ -1,0 +1,18 @@
+ <div  layout="row" layout-align="end end" >
+    <md-fab-speed-dial md-open="fab.isOpen" md-direction="up" ng-class="md-fling">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-warn">
+                <md-icon>
+                    <ng-md-icon icon="menu" style="fill: indigo"></ng-md-icon>
+                </md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button aria-label="Item" class="md-fab md-raised md-mini" ng-click="vm.addItem($event)">
+                <md-icon>
+                    <ng-md-icon icon="receipt" style="fill: indigo"></ng-md-icon>
+                </md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>

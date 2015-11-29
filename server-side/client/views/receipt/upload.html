@@ -1,0 +1,30 @@
+<md-content flex layout-padding>
+    <md-subheader ng-show="vm.loaded" class="md-secondary">
+        {{vm.title}}
+    <div ng-hide="vm.loaded" class="fx-fade-down fx-easing-bounce fx-speed-800" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+    <div ng-show="vm.loaded" class="fx-fade-left fx-easing-bounce fx-speed-800">
+        <div>
+            <md-button aria-label="Select File button" class="md-raised md-primary" ngf-select ng-model="files" ngf-multiple="true">Select File</md-button>
+        </div>
+        <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*,application/pdf">
+            Drop pdfs or images here or click to upload
+        </div>
+        <div ngf-no-file-drop>
+            File Drag/Drop is not supported for this browser
+        </div>
+        Files:
+        <ul>
+            <li ng-repeat="f in files" style="font:smaller">{{f.name}}</li>
+        </ul>
+        Upload Log:
+        <pre>{{log}}</pre>
+            <div>
+                <md-button class="md-raised md-primary" ng-click="vm.upload($event)">Upload</md-button>
+                
+            </div>
+    </div>
+        <!-- Search Bar -->
+
+    </div>
